@@ -1,0 +1,240 @@
+{
+  "sections": {
+    "hero-slider": {
+      "type": "hero-slider",
+      "blocks": {
+        "slide-1": {
+          "type": "slide",
+          "settings": {
+            "subheading": "New Collection",
+            "heading": "Quietly Premium",
+            "text": "Premium in feel. Thoughtful in design. Honest in price.",
+            "text_color": "#FFFFFF",
+            "text_alignment": "left",
+            "button_text": "Shop Now",
+            "button_link": "/collections/all",
+            "button_text_2": "Explore Collection",
+            "overlay_opacity": 30
+          }
+        },
+        "slide-2": {
+          "type": "slide",
+          "settings": {
+            "subheading": "Winter Essentials",
+            "heading": "Stay Cozy, Stay Stylish",
+            "text": "Discover our premium hoodies and sweatshirts designed for Indian winters.",
+            "text_color": "#FFFFFF",
+            "text_alignment": "center",
+            "button_text": "Shop Hoodies",
+            "button_link": "/collections/hoodies",
+            "overlay_opacity": 40
+          }
+        }
+      },
+      "block_order": ["slide-1", "slide-2"],
+      "settings": {
+        "height_desktop": 85,
+        "height_mobile": 70
+      }
+    },
+    "trust-badges": {
+      "type": "trust-badges",
+      "blocks": {
+        "badge-1": {
+          "type": "badge",
+          "settings": {
+            "icon": "truck",
+            "title": "Fast Shipping",
+            "text": "3-7 business days"
+          }
+        },
+        "badge-2": {
+          "type": "badge",
+          "settings": {
+            "icon": "package",
+            "title": "COD Available",
+            "text": "Pay on delivery"
+          }
+        },
+        "badge-3": {
+          "type": "badge",
+          "settings": {
+            "icon": "refresh",
+            "title": "Easy Returns",
+            "text": "7-day return policy"
+          }
+        },
+        "badge-4": {
+          "type": "badge",
+          "settings": {
+            "icon": "shield",
+            "title": "Secure Payments",
+            "text": "100% secure checkout"
+          }
+        }
+      },
+      "block_order": ["badge-1", "badge-2", "badge-3", "badge-4"],
+      "settings": {}
+    },
+    "category-blocks": {
+      "type": "category-blocks",
+      "blocks": {
+        "cat-1": {
+          "type": "category",
+          "settings": {
+            "title": "Shop Men",
+            "subtitle": "New Arrivals",
+            "button_text": "Shop Now",
+            "link": "/collections/men",
+            "text_color": "#FFFFFF",
+            "overlay_opacity": 30
+          }
+        },
+        "cat-2": {
+          "type": "category",
+          "settings": {
+            "title": "Shop Women",
+            "subtitle": "Trending Now",
+            "button_text": "Shop Now",
+            "link": "/collections/women",
+            "text_color": "#FFFFFF",
+            "overlay_opacity": 30
+          }
+        }
+      },
+      "block_order": ["cat-1", "cat-2"],
+      "settings": {
+        "layout": "2-columns",
+        "image_ratio": 100
+      }
+    },
+    "bestsellers": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Best Sellers",
+        "subtitle": "Our most loved pieces, curated just for you.",
+        "products_to_show": 8,
+        "products_per_row": "4",
+        "show_view_all": true,
+        "view_all_text": "View All Best Sellers"
+      }
+    },
+    "brand-story": {
+      "type": "brand-story",
+      "blocks": {
+        "feature-1": {
+          "type": "feature",
+          "settings": {
+            "icon": "check",
+            "title": "Premium Fabric",
+            "text": "300+ GSM quality cotton"
+          }
+        },
+        "feature-2": {
+          "type": "feature",
+          "settings": {
+            "icon": "heart",
+            "title": "Crafted with Care",
+            "text": "Attention to every detail"
+          }
+        },
+        "feature-3": {
+          "type": "feature",
+          "settings": {
+            "icon": "package",
+            "title": "Honest Pricing",
+            "text": "No hidden markups"
+          }
+        },
+        "feature-4": {
+          "type": "feature",
+          "settings": {
+            "icon": "star",
+            "title": "Timeless Design",
+            "text": "Beyond seasonal trends"
+          }
+        }
+      },
+      "block_order": ["feature-1", "feature-2", "feature-3", "feature-4"],
+      "settings": {
+        "subheading": "Our Philosophy",
+        "title": "Why SadaKappda?",
+        "text": "<p>SadaKappda is built on the belief that refinement does not need exaggeration \u2014 it is recognized through balance, restraint, and consistency.</p><p>Premium in feel. Thoughtful in design. Honest in price.</p>",
+        "button_text": "About Us",
+        "button_link": "/pages/about-us",
+        "image_position": "left"
+      }
+    },
+    "new-arrivals": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "New Arrivals",
+        "subtitle": "Fresh drops you don't want to miss.",
+        "products_to_show": 8,
+        "products_per_row": "4",
+        "show_view_all": true,
+        "view_all_text": "View All New Arrivals"
+      }
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "blocks": {
+        "review-1": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "The quality is amazing! The fabric feels so premium and the fit is perfect. Definitely worth the price.",
+            "author_name": "Rahul S.",
+            "author_location": "Mumbai",
+            "verified": true
+          }
+        },
+        "review-2": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "Finally found a brand that delivers on quality. The hoodie is exactly as described and the delivery was super fast.",
+            "author_name": "Priya M.",
+            "author_location": "Delhi",
+            "verified": true
+          }
+        },
+        "review-3": {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "quote": "Love the attention to detail. The stitching, the fabric, everything is top-notch. My new favorite brand!",
+            "author_name": "Arjun K.",
+            "author_location": "Bangalore",
+            "verified": true
+          }
+        }
+      },
+      "block_order": ["review-1", "review-2", "review-3"],
+      "settings": {
+        "title": "What Our Customers Say",
+        "subtitle": "Real reviews from real customers"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "title": "Join the SadaKappda Community",
+        "text": "Subscribe for exclusive offers, early access to new drops, and style inspiration.",
+        "placeholder": "Enter your email",
+        "button_text": "Subscribe",
+        "disclaimer": "By subscribing, you agree to receive marketing emails. Unsubscribe anytime."
+      }
+    }
+  },
+  "order": [
+    "hero-slider",
+    "trust-badges",
+    "category-blocks",
+    "bestsellers",
+    "brand-story",
+    "new-arrivals",
+    "testimonials",
+    "newsletter"
+  ]
+}
