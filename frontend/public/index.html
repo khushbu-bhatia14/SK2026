@@ -881,6 +881,9 @@
   <header class="header">
     <div class="container">
       <div class="header__inner">
+        <button class="header__menu-toggle" onclick="openMobileMenu()">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
         <div class="header__logo">
           <img src="https://customer-assets.emergentagent.com/job_231d065a-4e15-4900-b89f-317b0fa2d886/artifacts/ac162ebs_LogoHR.png" alt="SadaKappda">
         </div>
@@ -906,6 +909,28 @@
       </div>
     </div>
   </header>
+
+  <!-- Mobile Menu Overlay -->
+  <div class="mobile-menu-overlay" onclick="closeMobileMenu()"></div>
+  
+  <!-- Mobile Menu -->
+  <nav class="mobile-menu">
+    <div class="mobile-menu__header">
+      <span class="mobile-menu__title">Menu</span>
+      <button class="mobile-menu__close" onclick="closeMobileMenu()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+    <div class="mobile-menu__nav">
+      <a href="#">Men</a>
+      <a href="#">Women</a>
+      <a href="#">Best Sellers</a>
+      <a href="#">New Arrivals</a>
+      <a href="#">Sale</a>
+      <a href="#">Size Guide</a>
+      <a href="#">My Account</a>
+    </div>
+  </nav>
 
   <!-- Hero Section -->
   <section class="hero">
