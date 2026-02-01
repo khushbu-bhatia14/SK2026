@@ -1,0 +1,257 @@
+{% comment %}
+  FAQ Page Template
+{% endcomment %}
+
+{% section 'page-header' %}
+
+<section class="section faq-page">
+  <div class="container">
+    <div class="faq-page__intro">
+      <p>Find answers to our most frequently asked questions below. If you can't find what you're looking for, feel free to <a href="/pages/contact">contact us</a>.</p>
+    </div>
+    
+    <div class="faq-categories">
+      <div class="faq-category">
+        <h2>Orders & Shipping</h2>
+        
+        <div class="faq-item">
+          <button class="faq-item__question" onclick="this.parentElement.classList.toggle('is-open')">
+            <span>How long does shipping take?</span>
+            {% render 'icon', icon: 'chevron-down', size: 18 %}
+          </button>
+          <div class="faq-item__answer">
+            <p>Standard shipping across India takes 3-7 business days. Metro cities typically receive orders within 3-4 days, while other areas may take 5-7 days.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <button class="faq-item__question" onclick="this.parentElement.classList.toggle('is-open')">
+            <span>Is Cash on Delivery (COD) available?</span>
+            {% render 'icon', icon: 'chevron-down', size: 18 %}
+          </button>
+          <div class="faq-item__answer">
+            <p>Yes! COD is available for all orders across India. You can pay in cash when your order is delivered.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <button class="faq-item__question" onclick="this.parentElement.classList.toggle('is-open')">
+            <span>How can I track my order?</span>
+            {% render 'icon', icon: 'chevron-down', size: 18 %}
+          </button>
+          <div class="faq-item__answer">
+            <p>Once your order is shipped, you'll receive a tracking number via email and SMS. You can use this to track your package on our courier partner's website.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <button class="faq-item__question" onclick="this.parentElement.classList.toggle('is-open')">
+            <span>What are the shipping charges?</span>
+            {% render 'icon', icon: 'chevron-down', size: 18 %}
+          </button>
+          <div class="faq-item__answer">
+            <p>We offer FREE shipping on orders above ₹999. For orders below this amount, a nominal shipping fee of ₹79 is applicable.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="faq-category">
+        <h2>Returns & Exchanges</h2>
+        
+        <div class="faq-item">
+          <button class="faq-item__question" onclick="this.parentElement.classList.toggle('is-open')">
+            <span>What is your return policy?</span>
+            {% render 'icon', icon: 'chevron-down', size: 18 %}
+          </button>
+          <div class="faq-item__answer">
+            <p>We offer a 7-day easy return/exchange policy. Items must be unworn, unwashed, and have all original tags attached. Simply contact us within 7 days of delivery to initiate a return.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <button class="faq-item__question" onclick="this.parentElement.classList.toggle('is-open')">
+            <span>How do I exchange for a different size?</span>
+            {% render 'icon', icon: 'chevron-down', size: 18 %}
+          </button>
+          <div class="faq-item__answer">
+            <p>Contact our support team via email at {{ settings.contact_email }} or WhatsApp. We'll arrange a pickup and send you the new size once the original item is received.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <button class="faq-item__question" onclick="this.parentElement.classList.toggle('is-open')">
+            <span>When will I receive my refund?</span>
+            {% render 'icon', icon: 'chevron-down', size: 18 %}
+          </button>
+          <div class="faq-item__answer">
+            <p>Refunds are processed within 5-7 business days after we receive and inspect the returned item. The amount will be credited to your original payment method.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="faq-category">
+        <h2>Products & Sizing</h2>
+        
+        <div class="faq-item">
+          <button class="faq-item__question" onclick="this.parentElement.classList.toggle('is-open')">
+            <span>How do I find my size?</span>
+            {% render 'icon', icon: 'chevron-down', size: 18 %}
+          </button>
+          <div class="faq-item__answer">
+            <p>Check our <a href="/pages/size-guide">Size Guide</a> for detailed measurements. If you're between sizes, we recommend going with the larger size for comfort.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <button class="faq-item__question" onclick="this.parentElement.classList.toggle('is-open')">
+            <span>What is the fabric quality?</span>
+            {% render 'icon', icon: 'chevron-down', size: 18 %}
+          </button>
+          <div class="faq-item__answer">
+            <p>Our hoodies and sweatshirts are made from premium 300+ GSM cotton blend fabric, ensuring durability, comfort, and a premium feel.</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <button class="faq-item__question" onclick="this.parentElement.classList.toggle('is-open')">
+            <span>How should I care for my SadaKappda products?</span>
+            {% render 'icon', icon: 'chevron-down', size: 18 %}
+          </button>
+          <div class="faq-item__answer">
+            <p>Machine wash cold with similar colors. Tumble dry low or hang dry. Do not bleach. Iron on low heat if needed. Avoid dry cleaning.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div class="faq-category">
+        <h2>Payment</h2>
+        
+        <div class="faq-item">
+          <button class="faq-item__question" onclick="this.parentElement.classList.toggle('is-open')">
+            <span>What payment methods do you accept?</span>
+            {% render 'icon', icon: 'chevron-down', size: 18 %}
+          </button>
+          <div class="faq-item__answer">
+            <p>We accept Credit/Debit Cards, UPI, Net Banking, Wallets (Paytm, PhonePe, etc.), and Cash on Delivery (COD).</p>
+          </div>
+        </div>
+        
+        <div class="faq-item">
+          <button class="faq-item__question" onclick="this.parentElement.classList.toggle('is-open')">
+            <span>Is my payment information secure?</span>
+            {% render 'icon', icon: 'chevron-down', size: 18 %}
+          </button>
+          <div class="faq-item__answer">
+            <p>Yes, absolutely. All payments are processed through secure, PCI-compliant payment gateways. We never store your card details.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="faq-page__contact">
+      <h3>Still have questions?</h3>
+      <p>Our support team is here to help!</p>
+      <div class="faq-page__contact-options">
+        <a href="mailto:{{ settings.contact_email }}" class="button button--primary">Email Us</a>
+        {%- if settings.contact_whatsapp != blank -%}
+          <a href="https://wa.me/{{ settings.contact_whatsapp }}" target="_blank" rel="noopener" class="button button--secondary">WhatsApp</a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .faq-page__intro {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 3rem;
+    font-size: 1.0625rem;
+  }
+  
+  .faq-page__intro a {
+    color: var(--color-primary);
+  }
+  
+  .faq-category {
+    margin-bottom: 3rem;
+  }
+  
+  .faq-category h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--color-primary);
+  }
+  
+  .faq-item {
+    border-bottom: 1px solid rgba(128, 128, 128, 0.15);
+  }
+  
+  .faq-item__question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1.25rem 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 1.0625rem;
+    font-weight: 500;
+    text-align: left;
+    color: var(--color-body-text);
+  }
+  
+  .faq-item__question svg {
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+  
+  .faq-item.is-open .faq-item__question svg {
+    transform: rotate(180deg);
+  }
+  
+  .faq-item__answer {
+    display: none;
+    padding-bottom: 1.25rem;
+  }
+  
+  .faq-item.is-open .faq-item__answer {
+    display: block;
+  }
+  
+  .faq-item__answer p {
+    opacity: 0.85;
+    line-height: 1.7;
+    margin: 0;
+  }
+  
+  .faq-item__answer a {
+    color: var(--color-primary);
+  }
+  
+  .faq-page__contact {
+    text-align: center;
+    padding: 3rem;
+    background: var(--color-secondary-bg);
+    border-radius: var(--border-radius);
+    margin-top: 3rem;
+  }
+  
+  .faq-page__contact h3 {
+    margin-bottom: 0.5rem;
+  }
+  
+  .faq-page__contact p {
+    opacity: 0.7;
+    margin-bottom: 1.5rem;
+  }
+  
+  .faq-page__contact-options {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+</style>
