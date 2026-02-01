@@ -1,0 +1,133 @@
+{% comment %}
+  Rich Text Section
+{% endcomment %}
+
+<section class="section rich-text" style="
+  background: {{ section.settings.background_color }};
+  text-align: {{ section.settings.text_alignment }};
+">
+  <div class="container">
+    <div class="rich-text__inner" style="max-width: {{ section.settings.content_width }}px; margin: 0 auto;">
+      {%- if section.settings.subheading != blank -%}
+        <span class="rich-text__subheading">{{ section.settings.subheading }}</span>
+      {%- endif -%}
+      
+      {%- if section.settings.title != blank -%}
+        <h2 class="rich-text__title">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      
+      {%- if section.settings.text != blank -%}
+        <div class="rich-text__content">{{ section.settings.text }}</div>
+      {%- endif -%}
+      
+      {%- if section.settings.button_text != blank -%}
+        <a href="{{ section.settings.button_link }}" class="button button--primary">
+          {{ section.settings.button_text }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  .rich-text__subheading {
+    display: inline-block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+  }
+  
+  .rich-text__title {
+    font-size: 2.25rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .rich-text__content {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    opacity: 0.85;
+    margin-bottom: 2rem;
+  }
+  
+  .rich-text__content p {
+    margin-bottom: 1rem;
+  }
+  
+  @media (max-width: 768px) {
+    .rich-text__title {
+      font-size: 1.75rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Rich Text",
+  "tag": "section",
+  "class": "section-rich-text",
+  "settings": [
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Talk about your brand"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Share information about your brand with your customers. Describe a product, make announcements, or welcome customers to your store.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "content_width",
+      "label": "Content width",
+      "min": 400,
+      "max": 1000,
+      "step": 50,
+      "default": 700,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "transparent"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Rich Text"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,188 @@
+{% comment %}
+  Newsletter Section (Standalone)
+{% endcomment %}
+
+<section class="section newsletter-section" style="background: {{ section.settings.background_color }};">
+  <div class="container">
+    <div class="newsletter-box" style="
+      {%- if section.settings.background_image != blank -%}
+        background-image: url('{{ section.settings.background_image | image_url: width: 1400 }}');
+      {%- endif -%}
+    ">
+      <div class="newsletter-box__overlay"></div>
+      <div class="newsletter-box__content">
+        {%- if section.settings.title != blank -%}
+          <h2 class="newsletter-box__title">{{ section.settings.title }}</h2>
+        {%- endif -%}
+        
+        {%- if section.settings.text != blank -%}
+          <p class="newsletter-box__text">{{ section.settings.text }}</p>
+        {%- endif -%}
+        
+        {% form 'customer', class: 'newsletter-box__form' %}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <div class="newsletter-box__form-inner">
+            <input 
+              type="email" 
+              name="contact[email]" 
+              placeholder="{{ section.settings.placeholder }}" 
+              required
+              class="newsletter-box__input"
+            >
+            <button type="submit" class="newsletter-box__button button button--primary">
+              {{ section.settings.button_text }}
+            </button>
+          </div>
+          {%- if section.settings.disclaimer != blank -%}
+            <p class="newsletter-box__disclaimer">{{ section.settings.disclaimer }}</p>
+          {%- endif -%}
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .newsletter-box {
+    position: relative;
+    padding: 4rem 2rem;
+    border-radius: var(--border-radius);
+    background-color: var(--color-dark-bg);
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    overflow: hidden;
+  }
+  
+  .newsletter-box__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(var(--color-primary-rgb), 0.8), rgba(var(--color-secondary-rgb), 0.8));
+  }
+  
+  .newsletter-box__content {
+    position: relative;
+    z-index: 1;
+    max-width: 600px;
+    margin: 0 auto;
+    color: #fff;
+  }
+  
+  .newsletter-box__title {
+    font-size: 2rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .newsletter-box__text {
+    font-size: 1.0625rem;
+    opacity: 0.9;
+    margin-bottom: 2rem;
+  }
+  
+  .newsletter-box__form-inner {
+    display: flex;
+    gap: 0.5rem;
+    max-width: 450px;
+    margin: 0 auto;
+  }
+  
+  .newsletter-box__input {
+    flex: 1;
+    padding: 0.875rem 1rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: var(--border-radius);
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    font-size: 1rem;
+  }
+  
+  .newsletter-box__input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+  }
+  
+  .newsletter-box__input:focus {
+    outline: none;
+    border-color: #fff;
+    background: rgba(255, 255, 255, 0.2);
+  }
+  
+  .newsletter-box__button {
+    background: #fff;
+    color: var(--color-primary);
+  }
+  
+  .newsletter-box__disclaimer {
+    font-size: 0.75rem;
+    opacity: 0.7;
+    margin-top: 1rem;
+  }
+  
+  @media (max-width: 768px) {
+    .newsletter-box__form-inner {
+      flex-direction: column;
+    }
+    
+    .newsletter-box__title {
+      font-size: 1.5rem;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "tag": "section",
+  "class": "section-newsletter",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Join the SadaKappda Community"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Text",
+      "default": "Subscribe for exclusive offers, early access to new drops, and style inspiration."
+    },
+    {
+      "type": "text",
+      "id": "placeholder",
+      "label": "Input placeholder",
+      "default": "Enter your email"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Subscribe"
+    },
+    {
+      "type": "text",
+      "id": "disclaimer",
+      "label": "Disclaimer text",
+      "default": "By subscribing, you agree to receive marketing emails. Unsubscribe anytime."
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color (section)",
+      "default": "transparent"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter"
+    }
+  ]
+}
+{% endschema %}

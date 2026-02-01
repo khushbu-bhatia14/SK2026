@@ -1,0 +1,260 @@
+{% comment %}
+  Testimonials / Reviews Section
+{% endcomment %}
+
+<section class="section testimonials" style="background: {{ section.settings.background_color }};">
+  <div class="container">
+    {%- if section.settings.title != blank -%}
+      <div class="section-title">
+        <h2 class="section-title__heading">{{ section.settings.title }}</h2>
+        {%- if section.settings.subtitle != blank -%}
+          <p class="section-title__subheading">{{ section.settings.subtitle }}</p>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+    
+    <div class="testimonials__grid">
+      {%- for block in section.blocks -%}
+        <div class="testimonial-card" {{ block.shopify_attributes }}>
+          <div class="testimonial-card__rating">
+            {%- for i in (1..5) -%}
+              {%- if i <= block.settings.rating -%}
+                {% render 'icon', icon: 'star', size: 16 %}
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+          
+          <blockquote class="testimonial-card__quote">
+            {{ block.settings.quote }}
+          </blockquote>
+          
+          <div class="testimonial-card__author">
+            {%- if block.settings.author_image != blank -%}
+              <img 
+                src="{{ block.settings.author_image | image_url: width: 80 }}" 
+                alt="{{ block.settings.author_name }}" 
+                class="testimonial-card__avatar"
+                loading="lazy"
+              >
+            {%- else -%}
+              <div class="testimonial-card__avatar testimonial-card__avatar--placeholder">
+                {{ block.settings.author_name | slice: 0 | upcase }}
+              </div>
+            {%- endif -%}
+            <div class="testimonial-card__author-info">
+              <span class="testimonial-card__name">{{ block.settings.author_name }}</span>
+              {%- if block.settings.author_location != blank -%}
+                <span class="testimonial-card__location">{{ block.settings.author_location }}</span>
+              {%- endif -%}
+            </div>
+          </div>
+          
+          {%- if block.settings.verified -%}
+            <div class="testimonial-card__verified">
+              {% render 'icon', icon: 'check', size: 14 %}
+              <span>Verified Purchase</span>
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+<style>
+  .testimonials__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+  
+  .testimonial-card {
+    background: var(--color-secondary-bg);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .testimonial-card__rating {
+    display: flex;
+    gap: 0.125rem;
+    margin-bottom: 1rem;
+    color: #FFB800;
+  }
+  
+  .testimonial-card__quote {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin: 0 0 1.5rem;
+    flex: 1;
+    font-style: italic;
+    opacity: 0.9;
+  }
+  
+  .testimonial-card__author {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  
+  .testimonial-card__avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .testimonial-card__avatar--placeholder {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1.125rem;
+  }
+  
+  .testimonial-card__author-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .testimonial-card__name {
+    font-weight: 600;
+    font-size: 0.9375rem;
+  }
+  
+  .testimonial-card__location {
+    font-size: 0.8125rem;
+    opacity: 0.6;
+  }
+  
+  .testimonial-card__verified {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(128, 128, 128, 0.2);
+    font-size: 0.75rem;
+    color: #27ae60;
+  }
+  
+  @media (max-width: 1024px) {
+    .testimonials__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .testimonials__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "tag": "section",
+  "class": "section-testimonials",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "What Our Customers Say"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Real reviews from real customers"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "transparent"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote",
+          "default": "The quality is amazing! The fabric feels so premium and the fit is perfect. Will definitely order more."
+        },
+        {
+          "type": "image_picker",
+          "id": "author_image",
+          "label": "Author image"
+        },
+        {
+          "type": "text",
+          "id": "author_name",
+          "label": "Author name",
+          "default": "Rahul S."
+        },
+        {
+          "type": "text",
+          "id": "author_location",
+          "label": "Author location",
+          "default": "Mumbai, India"
+        },
+        {
+          "type": "checkbox",
+          "id": "verified",
+          "label": "Show verified badge",
+          "default": true
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials",
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "The quality is amazing! The fabric feels so premium and the fit is perfect. Definitely worth the price.",
+            "author_name": "Rahul S.",
+            "author_location": "Mumbai"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Finally found a brand that delivers on quality. The hoodie is exactly as described and the delivery was super fast.",
+            "author_name": "Priya M.",
+            "author_location": "Delhi"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "quote": "Love the attention to detail. The stitching, the fabric, everything is top-notch. My new favorite brand!",
+            "author_name": "Arjun K.",
+            "author_location": "Bangalore"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
