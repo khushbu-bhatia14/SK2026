@@ -1,0 +1,889 @@
+{% comment %}
+  Size Chart Popup - Dynamic size chart modal for product pages
+  Fully customizable via Theme Editor
+{% endcomment %}
+
+{%- comment %} Size Chart Modal {% endcomment -%}
+<div id="size-chart-modal" class="size-chart-modal" data-size-chart-modal>
+  <div class="size-chart-modal__overlay" data-size-chart-close></div>
+  <div class="size-chart-modal__content">
+    <div class="size-chart-modal__header">
+      <h2 class="size-chart-modal__title">{{ section.settings.title | default: 'Size Guide' }}</h2>
+      <button class="size-chart-modal__close" data-size-chart-close aria-label="Close size chart">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    
+    <div class="size-chart-modal__body">
+      {%- if section.settings.description != blank -%}
+        <p class="size-chart-modal__description">{{ section.settings.description }}</p>
+      {%- endif -%}
+      
+      {%- comment %} How to Measure Section {% endcomment -%}
+      {%- if section.settings.show_measurement_guide -%}
+        <div class="size-chart__measure-guide">
+          <h3>How to Measure</h3>
+          <div class="size-chart__measure-tips">
+            <div class="size-chart__measure-tip">
+              <span class="size-chart__measure-icon">📏</span>
+              <div>
+                <strong>Chest</strong>
+                <p>Measure around the fullest part of your chest, keeping the tape level.</p>
+              </div>
+            </div>
+            <div class="size-chart__measure-tip">
+              <span class="size-chart__measure-icon">📐</span>
+              <div>
+                <strong>Length</strong>
+                <p>Measure from the highest point of your shoulder to the hem.</p>
+              </div>
+            </div>
+            <div class="size-chart__measure-tip">
+              <span class="size-chart__measure-icon">↔️</span>
+              <div>
+                <strong>Shoulder</strong>
+                <p>Measure from one shoulder edge to the other across the back.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
+      
+      {%- comment %} Size Chart Tables {% endcomment -%}
+      <div class="size-chart__tabs">
+        <div class="size-chart__tab-buttons">
+          <button class="size-chart__tab-btn is-active" data-tab="tops">Tops & T-Shirts</button>
+          <button class="size-chart__tab-btn" data-tab="bottoms">Bottoms</button>
+        </div>
+        
+        {%- comment %} Tops Size Chart {% endcomment -%}
+        <div class="size-chart__tab-content is-active" data-tab-content="tops">
+          <div class="size-chart__table-wrapper">
+            <table class="size-chart__table">
+              <thead>
+                <tr>
+                  <th>Size</th>
+                  <th>Chest (in)</th>
+                  <th>Length (in)</th>
+                  <th>Shoulder (in)</th>
+                  <th>Sleeve (in)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>XS</strong></td>
+                  <td>{{ section.settings.tops_xs_chest | default: '34-36' }}</td>
+                  <td>{{ section.settings.tops_xs_length | default: '26' }}</td>
+                  <td>{{ section.settings.tops_xs_shoulder | default: '15' }}</td>
+                  <td>{{ section.settings.tops_xs_sleeve | default: '7' }}</td>
+                </tr>
+                <tr>
+                  <td><strong>S</strong></td>
+                  <td>{{ section.settings.tops_s_chest | default: '36-38' }}</td>
+                  <td>{{ section.settings.tops_s_length | default: '27' }}</td>
+                  <td>{{ section.settings.tops_s_shoulder | default: '16' }}</td>
+                  <td>{{ section.settings.tops_s_sleeve | default: '7.5' }}</td>
+                </tr>
+                <tr>
+                  <td><strong>M</strong></td>
+                  <td>{{ section.settings.tops_m_chest | default: '38-40' }}</td>
+                  <td>{{ section.settings.tops_m_length | default: '28' }}</td>
+                  <td>{{ section.settings.tops_m_shoulder | default: '17' }}</td>
+                  <td>{{ section.settings.tops_m_sleeve | default: '8' }}</td>
+                </tr>
+                <tr>
+                  <td><strong>L</strong></td>
+                  <td>{{ section.settings.tops_l_chest | default: '40-42' }}</td>
+                  <td>{{ section.settings.tops_l_length | default: '29' }}</td>
+                  <td>{{ section.settings.tops_l_shoulder | default: '18' }}</td>
+                  <td>{{ section.settings.tops_l_sleeve | default: '8.5' }}</td>
+                </tr>
+                <tr>
+                  <td><strong>XL</strong></td>
+                  <td>{{ section.settings.tops_xl_chest | default: '42-44' }}</td>
+                  <td>{{ section.settings.tops_xl_length | default: '30' }}</td>
+                  <td>{{ section.settings.tops_xl_shoulder | default: '19' }}</td>
+                  <td>{{ section.settings.tops_xl_sleeve | default: '9' }}</td>
+                </tr>
+                <tr>
+                  <td><strong>XXL</strong></td>
+                  <td>{{ section.settings.tops_xxl_chest | default: '44-46' }}</td>
+                  <td>{{ section.settings.tops_xxl_length | default: '31' }}</td>
+                  <td>{{ section.settings.tops_xxl_shoulder | default: '20' }}</td>
+                  <td>{{ section.settings.tops_xxl_sleeve | default: '9.5' }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        
+        {%- comment %} Bottoms Size Chart {% endcomment -%}
+        <div class="size-chart__tab-content" data-tab-content="bottoms">
+          <div class="size-chart__table-wrapper">
+            <table class="size-chart__table">
+              <thead>
+                <tr>
+                  <th>Size</th>
+                  <th>Waist (in)</th>
+                  <th>Hip (in)</th>
+                  <th>Length (in)</th>
+                  <th>Inseam (in)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>28</strong></td>
+                  <td>{{ section.settings.bottoms_28_waist | default: '28' }}</td>
+                  <td>{{ section.settings.bottoms_28_hip | default: '36' }}</td>
+                  <td>{{ section.settings.bottoms_28_length | default: '40' }}</td>
+                  <td>{{ section.settings.bottoms_28_inseam | default: '30' }}</td>
+                </tr>
+                <tr>
+                  <td><strong>30</strong></td>
+                  <td>{{ section.settings.bottoms_30_waist | default: '30' }}</td>
+                  <td>{{ section.settings.bottoms_30_hip | default: '38' }}</td>
+                  <td>{{ section.settings.bottoms_30_length | default: '41' }}</td>
+                  <td>{{ section.settings.bottoms_30_inseam | default: '31' }}</td>
+                </tr>
+                <tr>
+                  <td><strong>32</strong></td>
+                  <td>{{ section.settings.bottoms_32_waist | default: '32' }}</td>
+                  <td>{{ section.settings.bottoms_32_hip | default: '40' }}</td>
+                  <td>{{ section.settings.bottoms_32_length | default: '42' }}</td>
+                  <td>{{ section.settings.bottoms_32_inseam | default: '32' }}</td>
+                </tr>
+                <tr>
+                  <td><strong>34</strong></td>
+                  <td>{{ section.settings.bottoms_34_waist | default: '34' }}</td>
+                  <td>{{ section.settings.bottoms_34_hip | default: '42' }}</td>
+                  <td>{{ section.settings.bottoms_34_length | default: '43' }}</td>
+                  <td>{{ section.settings.bottoms_34_inseam | default: '32' }}</td>
+                </tr>
+                <tr>
+                  <td><strong>36</strong></td>
+                  <td>{{ section.settings.bottoms_36_waist | default: '36' }}</td>
+                  <td>{{ section.settings.bottoms_36_hip | default: '44' }}</td>
+                  <td>{{ section.settings.bottoms_36_length | default: '44' }}</td>
+                  <td>{{ section.settings.bottoms_36_inseam | default: '33' }}</td>
+                </tr>
+                <tr>
+                  <td><strong>38</strong></td>
+                  <td>{{ section.settings.bottoms_38_waist | default: '38' }}</td>
+                  <td>{{ section.settings.bottoms_38_hip | default: '46' }}</td>
+                  <td>{{ section.settings.bottoms_38_length | default: '44' }}</td>
+                  <td>{{ section.settings.bottoms_38_inseam | default: '33' }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      
+      {%- comment %} Fit Tips {% endcomment -%}
+      {%- if section.settings.fit_tip != blank -%}
+        <div class="size-chart__fit-tip">
+          <span class="size-chart__fit-tip-icon">💡</span>
+          <p>{{ section.settings.fit_tip }}</p>
+        </div>
+      {%- endif -%}
+      
+      {%- comment %} Help Contact {% endcomment -%}
+      {%- if section.settings.show_help_contact -%}
+        <div class="size-chart__help">
+          <p>Still confused about your size?</p>
+          <a href="https://wa.me/{{ settings.whatsapp_number | remove: '+' | remove: ' ' }}" target="_blank" class="size-chart__help-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            Chat with us on WhatsApp
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<style>
+  .size-chart-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+  }
+  
+  .size-chart-modal.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+  
+  .size-chart-modal__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+  }
+  
+  .size-chart-modal__content {
+    position: relative;
+    width: 90%;
+    max-width: 700px;
+    max-height: 85vh;
+    background: var(--color-body-bg, #fff);
+    border-radius: 12px;
+    overflow: hidden;
+    transform: translateY(20px);
+    transition: transform 0.3s;
+  }
+  
+  .size-chart-modal.is-open .size-chart-modal__content {
+    transform: translateY(0);
+  }
+  
+  .size-chart-modal__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+    background: var(--color-secondary-bg, #f8f8f8);
+  }
+  
+  .size-chart-modal__title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 0;
+  }
+  
+  .size-chart-modal__close {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+    transition: opacity 0.2s;
+  }
+  
+  .size-chart-modal__close:hover {
+    opacity: 0.7;
+  }
+  
+  .size-chart-modal__body {
+    padding: 1.5rem;
+    overflow-y: auto;
+    max-height: calc(85vh - 80px);
+  }
+  
+  .size-chart-modal__description {
+    margin-bottom: 1.5rem;
+    font-size: 0.9375rem;
+    color: rgba(128, 128, 128, 0.8);
+  }
+  
+  /* Measurement Guide */
+  .size-chart__measure-guide {
+    margin-bottom: 2rem;
+    padding: 1.25rem;
+    background: var(--color-secondary-bg, #f8f8f8);
+    border-radius: 8px;
+  }
+  
+  .size-chart__measure-guide h3 {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .size-chart__measure-tips {
+    display: grid;
+    gap: 1rem;
+  }
+  
+  .size-chart__measure-tip {
+    display: flex;
+    gap: 0.75rem;
+  }
+  
+  .size-chart__measure-icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+  }
+  
+  .size-chart__measure-tip strong {
+    display: block;
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+  }
+  
+  .size-chart__measure-tip p {
+    font-size: 0.8125rem;
+    margin: 0;
+    opacity: 0.7;
+  }
+  
+  /* Tabs */
+  .size-chart__tabs {
+    margin-bottom: 1.5rem;
+  }
+  
+  .size-chart__tab-buttons {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid rgba(128, 128, 128, 0.15);
+    padding-bottom: 0;
+  }
+  
+  .size-chart__tab-btn {
+    padding: 0.75rem 1.25rem;
+    background: transparent;
+    border: none;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    cursor: pointer;
+    color: rgba(128, 128, 128, 0.6);
+    border-bottom: 2px solid transparent;
+    margin-bottom: -2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  
+  .size-chart__tab-btn:hover {
+    color: inherit;
+  }
+  
+  .size-chart__tab-btn.is-active {
+    color: var(--color-primary, #FF6B35);
+    border-bottom-color: var(--color-primary, #FF6B35);
+  }
+  
+  .size-chart__tab-content {
+    display: none;
+  }
+  
+  .size-chart__tab-content.is-active {
+    display: block;
+  }
+  
+  /* Table */
+  .size-chart__table-wrapper {
+    overflow-x: auto;
+    border-radius: 8px;
+    border: 1px solid rgba(128, 128, 128, 0.15);
+  }
+  
+  .size-chart__table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+  }
+  
+  .size-chart__table th,
+  .size-chart__table td {
+    padding: 0.875rem 1rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.1);
+  }
+  
+  .size-chart__table th {
+    background: var(--color-secondary-bg, #f8f8f8);
+    font-weight: 600;
+    font-size: 0.8125rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  
+  .size-chart__table tbody tr:hover {
+    background: rgba(255, 107, 53, 0.05);
+  }
+  
+  .size-chart__table tbody tr:last-child td {
+    border-bottom: none;
+  }
+  
+  /* Fit Tip */
+  .size-chart__fit-tip {
+    display: flex;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    background: rgba(255, 107, 53, 0.08);
+    border-radius: 8px;
+    border-left: 4px solid var(--color-primary, #FF6B35);
+    margin-bottom: 1.5rem;
+  }
+  
+  .size-chart__fit-tip-icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+  }
+  
+  .size-chart__fit-tip p {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+  
+  /* Help Contact */
+  .size-chart__help {
+    text-align: center;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(128, 128, 128, 0.15);
+  }
+  
+  .size-chart__help p {
+    margin: 0 0 0.75rem;
+    font-size: 0.875rem;
+    opacity: 0.7;
+  }
+  
+  .size-chart__help-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1.25rem;
+    background: #25D366;
+    color: #fff;
+    border-radius: 50px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.2s;
+  }
+  
+  .size-chart__help-link:hover {
+    background: #20bd5a;
+    transform: translateY(-2px);
+  }
+  
+  @media (max-width: 600px) {
+    .size-chart-modal__content {
+      width: 95%;
+      max-height: 90vh;
+    }
+    
+    .size-chart-modal__body {
+      max-height: calc(90vh - 70px);
+      padding: 1rem;
+    }
+    
+    .size-chart__table th,
+    .size-chart__table td {
+      padding: 0.625rem 0.5rem;
+      font-size: 0.8125rem;
+    }
+    
+    .size-chart__tab-btn {
+      padding: 0.625rem 0.875rem;
+      font-size: 0.875rem;
+    }
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.querySelector('[data-size-chart-modal]');
+    const closeButtons = document.querySelectorAll('[data-size-chart-close]');
+    const sizeGuideLinks = document.querySelectorAll('a[href="#size-guide"], .product-option__size-guide');
+    const tabButtons = document.querySelectorAll('.size-chart__tab-btn');
+    
+    // Open modal
+    sizeGuideLinks.forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        modal.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      });
+    });
+    
+    // Close modal
+    closeButtons.forEach(btn => {
+      btn.addEventListener('click', function() {
+        modal.classList.remove('is-open');
+        document.body.style.overflow = '';
+      });
+    });
+    
+    // Close on escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && modal.classList.contains('is-open')) {
+        modal.classList.remove('is-open');
+        document.body.style.overflow = '';
+      }
+    });
+    
+    // Tab switching
+    tabButtons.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const tabName = this.getAttribute('data-tab');
+        
+        // Update button states
+        tabButtons.forEach(b => b.classList.remove('is-active'));
+        this.classList.add('is-active');
+        
+        // Update content states
+        document.querySelectorAll('.size-chart__tab-content').forEach(content => {
+          content.classList.remove('is-active');
+        });
+        document.querySelector(`[data-tab-content="${tabName}"]`).classList.add('is-active');
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Size Chart Popup",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Size Guide"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Find your perfect fit with our comprehensive size chart."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_measurement_guide",
+      "label": "Show measurement guide",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Tops Size Chart"
+    },
+    {
+      "type": "text",
+      "id": "tops_xs_chest",
+      "label": "XS - Chest",
+      "default": "34-36"
+    },
+    {
+      "type": "text",
+      "id": "tops_xs_length",
+      "label": "XS - Length",
+      "default": "26"
+    },
+    {
+      "type": "text",
+      "id": "tops_xs_shoulder",
+      "label": "XS - Shoulder",
+      "default": "15"
+    },
+    {
+      "type": "text",
+      "id": "tops_xs_sleeve",
+      "label": "XS - Sleeve",
+      "default": "7"
+    },
+    {
+      "type": "text",
+      "id": "tops_s_chest",
+      "label": "S - Chest",
+      "default": "36-38"
+    },
+    {
+      "type": "text",
+      "id": "tops_s_length",
+      "label": "S - Length",
+      "default": "27"
+    },
+    {
+      "type": "text",
+      "id": "tops_s_shoulder",
+      "label": "S - Shoulder",
+      "default": "16"
+    },
+    {
+      "type": "text",
+      "id": "tops_s_sleeve",
+      "label": "S - Sleeve",
+      "default": "7.5"
+    },
+    {
+      "type": "text",
+      "id": "tops_m_chest",
+      "label": "M - Chest",
+      "default": "38-40"
+    },
+    {
+      "type": "text",
+      "id": "tops_m_length",
+      "label": "M - Length",
+      "default": "28"
+    },
+    {
+      "type": "text",
+      "id": "tops_m_shoulder",
+      "label": "M - Shoulder",
+      "default": "17"
+    },
+    {
+      "type": "text",
+      "id": "tops_m_sleeve",
+      "label": "M - Sleeve",
+      "default": "8"
+    },
+    {
+      "type": "text",
+      "id": "tops_l_chest",
+      "label": "L - Chest",
+      "default": "40-42"
+    },
+    {
+      "type": "text",
+      "id": "tops_l_length",
+      "label": "L - Length",
+      "default": "29"
+    },
+    {
+      "type": "text",
+      "id": "tops_l_shoulder",
+      "label": "L - Shoulder",
+      "default": "18"
+    },
+    {
+      "type": "text",
+      "id": "tops_l_sleeve",
+      "label": "L - Sleeve",
+      "default": "8.5"
+    },
+    {
+      "type": "text",
+      "id": "tops_xl_chest",
+      "label": "XL - Chest",
+      "default": "42-44"
+    },
+    {
+      "type": "text",
+      "id": "tops_xl_length",
+      "label": "XL - Length",
+      "default": "30"
+    },
+    {
+      "type": "text",
+      "id": "tops_xl_shoulder",
+      "label": "XL - Shoulder",
+      "default": "19"
+    },
+    {
+      "type": "text",
+      "id": "tops_xl_sleeve",
+      "label": "XL - Sleeve",
+      "default": "9"
+    },
+    {
+      "type": "text",
+      "id": "tops_xxl_chest",
+      "label": "XXL - Chest",
+      "default": "44-46"
+    },
+    {
+      "type": "text",
+      "id": "tops_xxl_length",
+      "label": "XXL - Length",
+      "default": "31"
+    },
+    {
+      "type": "text",
+      "id": "tops_xxl_shoulder",
+      "label": "XXL - Shoulder",
+      "default": "20"
+    },
+    {
+      "type": "text",
+      "id": "tops_xxl_sleeve",
+      "label": "XXL - Sleeve",
+      "default": "9.5"
+    },
+    {
+      "type": "header",
+      "content": "Bottoms Size Chart"
+    },
+    {
+      "type": "text",
+      "id": "bottoms_28_waist",
+      "label": "28 - Waist",
+      "default": "28"
+    },
+    {
+      "type": "text",
+      "id": "bottoms_28_hip",
+      "label": "28 - Hip",
+      "default": "36"
+    },
+    {
+      "type": "text",
+      "id": "bottoms_28_length",
+      "label": "28 - Length",
+      "default": "40"
+    },
+    {
+      "type": "text",
+      "id": "bottoms_28_inseam",
+      "label": "28 - Inseam",
+      "default": "30"
+    },
+    {
+      "type": "text",
+      "id": "bottoms_30_waist",
+      "label": "30 - Waist",
+      "default": "30"
+    },
+    {
+      "type": "text",
+      "id": "bottoms_30_hip",
+      "label": "30 - Hip",
+      "default": "38"
+    },
+    {
+      "type": "text",
+      "id": "bottoms_30_length",
+      "label": "30 - Length",
+      "default": "41"
+    },
+    {
+      "type": "text",
+      "id": "bottoms_30_inseam",
+      "label": "30 - Inseam",
+      "default": "31"
+    },
+    {
+      "type": "text",
+      "id": "bottoms_32_waist",
+      "label": "32 - Waist",
+      "default": "32"
+    },
+    {
+      "type": "text",
+      "id": "bottoms_32_hip",
+      "label": "32 - Hip",
+      "default": "40"
+    },
+    {
+      "type": "text",
+      "id": "bottoms_32_length",
+      "label": "32 - Length",
+      "default": "42"
+    },
+    {
+      "type": "text",
+      "id": "bottoms_32_inseam",
+      "label": "32 - Inseam",
+      "default": "32"
+    },
+    {
+      "type": "text",
+      "id": "bottoms_34_waist",
+      "label": "34 - Waist",
+      "default": "34"
+    },
+    {
+      "type": "text",
+      "id": "bottoms_34_hip",
+      "label": "34 - Hip",
+      "default": "42"
+    },
+    {
+      "type": "text",
+      "id": "bottoms_34_length",
+      "label": "34 - Length",
+      "default": "43"
+    },
+    {
+      "type": "text",
+      "id": "bottoms_34_inseam",
+      "label": "34 - Inseam",
+      "default": "32"
+    },
+    {
+      "type": "text",
+      "id": "bottoms_36_waist",
+      "label": "36 - Waist",
+      "default": "36"
+    },
+    {
+      "type": "text",
+      "id": "bottoms_36_hip",
+      "label": "36 - Hip",
+      "default": "44"
+    },
+    {
+      "type": "text",
+      "id": "bottoms_36_length",
+      "label": "36 - Length",
+      "default": "44"
+    },
+    {
+      "type": "text",
+      "id": "bottoms_36_inseam",
+      "label": "36 - Inseam",
+      "default": "33"
+    },
+    {
+      "type": "text",
+      "id": "bottoms_38_waist",
+      "label": "38 - Waist",
+      "default": "38"
+    },
+    {
+      "type": "text",
+      "id": "bottoms_38_hip",
+      "label": "38 - Hip",
+      "default": "46"
+    },
+    {
+      "type": "text",
+      "id": "bottoms_38_length",
+      "label": "38 - Length",
+      "default": "44"
+    },
+    {
+      "type": "text",
+      "id": "bottoms_38_inseam",
+      "label": "38 - Inseam",
+      "default": "33"
+    },
+    {
+      "type": "header",
+      "content": "Additional Settings"
+    },
+    {
+      "type": "textarea",
+      "id": "fit_tip",
+      "label": "Fit tip message",
+      "default": "Our tees have a relaxed fit. If you prefer a snugger fit, we recommend sizing down."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_help_contact",
+      "label": "Show WhatsApp help button",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Size Chart Popup"
+    }
+  ]
+}
+{% endschema %}
