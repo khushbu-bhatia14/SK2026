@@ -1,0 +1,384 @@
+{% comment %}
+  Collection Products Section
+{% endcomment %}
+
+<section class="section collection-products">
+  <div class="container">
+    <div class="collection-toolbar">
+      <div class="collection-toolbar__filters">
+        <button class="collection-toolbar__filter-btn hidden--desktop" data-filters-toggle>
+          {% render 'icon', icon: 'filter', size: 18 %}
+          <span>Filter</span>
+        </button>
+      </div>
+      
+      <div class="collection-toolbar__sort">
+        <label for="sort-by" class="visually-hidden">Sort by</label>
+        <select id="sort-by" class="collection-toolbar__select" onchange="window.location.href=this.value">
+          {%- for option in collection.sort_options -%}
+            <option value="{{ option.url }}" {% if option.value == collection.sort_by %}selected{% endif %}>
+              {{ option.name }}
+            </option>
+          {%- endfor -%}
+        </select>
+      </div>
+    </div>
+    
+    <div class="collection-layout">
+      {%- if collection.filters.size > 0 -%}
+        <aside class="collection-sidebar hidden--mobile">
+          <form id="collection-filters-form" class="collection-filters">
+            {%- for filter in collection.filters -%}
+              <div class="collection-filter">
+                <button type="button" class="collection-filter__toggle" onclick="this.parentElement.classList.toggle('is-open')">
+                  <span>{{ filter.label }}</span>
+                  {% render 'icon', icon: 'chevron-down', size: 16 %}
+                </button>
+                
+                <div class="collection-filter__content">
+                  {%- case filter.type -%}
+                    {%- when 'list' -%}
+                      <ul class="collection-filter__list">
+                        {%- for value in filter.values -%}
+                          <li>
+                            <label class="collection-filter__option">
+                              <input 
+                                type="checkbox" 
+                                name="{{ value.param_name }}" 
+                                value="{{ value.value }}"
+                                {% if value.active %}checked{% endif %}
+                                onchange="this.form.submit()"
+                              >
+                              <span class="collection-filter__checkbox"></span>
+                              <span>{{ value.label }}</span>
+                              <span class="collection-filter__count">({{ value.count }})</span>
+                            </label>
+                          </li>
+                        {%- endfor -%}
+                      </ul>
+                      
+                    {%- when 'price_range' -%}
+                      <div class="collection-filter__price">
+                        <div class="collection-filter__price-inputs">
+                          <input 
+                            type="number" 
+                            name="{{ filter.min_value.param_name }}" 
+                            placeholder="Min" 
+                            value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+                            min="0"
+                          >
+                          <span>-</span>
+                          <input 
+                            type="number" 
+                            name="{{ filter.max_value.param_name }}" 
+                            placeholder="Max" 
+                            value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+                          >
+                        </div>
+                        <button type="submit" class="button button--small">Apply</button>
+                      </div>
+                  {%- endcase -%}
+                </div>
+              </div>
+            {%- endfor -%}
+            
+            {%- if collection.filters.size > 0 -%}
+              {%- assign active_filters_count = 0 -%}
+              {%- for filter in collection.filters -%}
+                {%- assign active_filters_count = active_filters_count | plus: filter.active_values.size -%}
+              {%- endfor -%}
+              
+              {%- if active_filters_count > 0 -%}
+                <a href="{{ collection.url }}" class="collection-filters__clear">
+                  Clear all filters ({{ active_filters_count }})
+                </a>
+              {%- endif -%}
+            {%- endif -%}
+          </form>
+        </aside>
+      {%- endif -%}
+      
+      <div class="collection-main">
+        {%- paginate collection.products by section.settings.products_per_page -%}
+          {%- if collection.products.size > 0 -%}
+            <div class="products-grid products-grid--{{ section.settings.products_per_row }}">
+              {%- for product in collection.products -%}
+                {% render 'product-card', product: product, lazy_load: true %}
+              {%- endfor -%}
+            </div>
+            
+            {%- if paginate.pages > 1 -%}
+              <nav class="pagination" aria-label="Pagination">
+                {%- if paginate.previous -%}
+                  <a href="{{ paginate.previous.url }}" class="pagination__link pagination__link--prev">
+                    {% render 'icon', icon: 'chevron-left', size: 18 %}
+                    <span>Previous</span>
+                  </a>
+                {%- endif -%}
+                
+                <div class="pagination__pages">
+                  {%- for part in paginate.parts -%}
+                    {%- if part.is_link -%}
+                      <a href="{{ part.url }}" class="pagination__link">{{ part.title }}</a>
+                    {%- else -%}
+                      {%- if part.title == paginate.current_page -%}
+                        <span class="pagination__link pagination__link--current" aria-current="page">{{ part.title }}</span>
+                      {%- else -%}
+                        <span class="pagination__link pagination__link--gap">{{ part.title }}</span>
+                      {%- endif -%}
+                    {%- endif -%}
+                  {%- endfor -%}
+                </div>
+                
+                {%- if paginate.next -%}
+                  <a href="{{ paginate.next.url }}" class="pagination__link pagination__link--next">
+                    <span>Next</span>
+                    {% render 'icon', icon: 'chevron-right', size: 18 %}
+                  </a>
+                {%- endif -%}
+              </nav>
+            {%- endif -%}
+          {%- else -%}
+            <div class="empty-state">
+              <div class="empty-state__icon">
+                <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <path d="m21 21-4.35-4.35"></path>
+                </svg>
+              </div>
+              <h2 class="empty-state__title">No products found</h2>
+              <p class="empty-state__text">Try changing your filters or browse our collections.</p>
+              <a href="/collections/all" class="button button--primary">Shop All Products</a>
+            </div>
+          {%- endif -%}
+        {%- endpaginate -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .collection-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.2);
+  }
+  
+  .collection-toolbar__filter-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1rem;
+    background: var(--color-secondary-bg);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 0.9375rem;
+    font-weight: 500;
+  }
+  
+  .collection-toolbar__select {
+    padding: 0.625rem 2rem 0.625rem 1rem;
+    background: var(--color-secondary-bg);
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 0.9375rem;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+  }
+  
+  .collection-layout {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 2rem;
+  }
+  
+  .collection-sidebar {
+    position: sticky;
+    top: 100px;
+    align-self: start;
+  }
+  
+  .collection-filter {
+    border-bottom: 1px solid rgba(128, 128, 128, 0.15);
+  }
+  
+  .collection-filter__toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1rem 0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-body-text);
+  }
+  
+  .collection-filter__toggle svg {
+    transition: transform 0.2s;
+  }
+  
+  .collection-filter.is-open .collection-filter__toggle svg {
+    transform: rotate(180deg);
+  }
+  
+  .collection-filter__content {
+    display: none;
+    padding-bottom: 1rem;
+  }
+  
+  .collection-filter.is-open .collection-filter__content {
+    display: block;
+  }
+  
+  .collection-filter__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+  
+  .collection-filter__option {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+    cursor: pointer;
+    font-size: 0.875rem;
+  }
+  
+  .collection-filter__option input {
+    display: none;
+  }
+  
+  .collection-filter__checkbox {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(128, 128, 128, 0.4);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s, background-color 0.2s;
+  }
+  
+  .collection-filter__option input:checked + .collection-filter__checkbox {
+    border-color: var(--color-primary);
+    background: var(--color-primary);
+  }
+  
+  .collection-filter__option input:checked + .collection-filter__checkbox::after {
+    content: '\2713';
+    color: #fff;
+    font-size: 0.75rem;
+  }
+  
+  .collection-filter__count {
+    opacity: 0.5;
+    margin-left: auto;
+  }
+  
+  .collection-filter__price-inputs {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .collection-filter__price-inputs input {
+    flex: 1;
+    padding: 0.5rem;
+    width: 80px;
+  }
+  
+  .collection-filters__clear {
+    display: block;
+    margin-top: 1rem;
+    color: var(--color-primary);
+    font-size: 0.875rem;
+  }
+  
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 3rem;
+  }
+  
+  .pagination__pages {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  
+  .pagination__link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 0.75rem;
+    border-radius: var(--border-radius);
+    font-size: 0.9375rem;
+    color: var(--color-body-text);
+    transition: background-color 0.2s;
+  }
+  
+  .pagination__link:hover {
+    background: var(--color-secondary-bg);
+  }
+  
+  .pagination__link--current {
+    background: var(--color-primary);
+    color: #fff;
+  }
+  
+  .pagination__link--prev,
+  .pagination__link--next {
+    gap: 0.25rem;
+  }
+  
+  @media (max-width: 1024px) {
+    .collection-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Collection Products",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Products per page",
+      "min": 8,
+      "max": 24,
+      "step": 4,
+      "default": 16
+    },
+    {
+      "type": "select",
+      "id": "products_per_row",
+      "label": "Products per row",
+      "options": [
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" }
+      ],
+      "default": "4"
+    }
+  ]
+}
+{% endschema %}
