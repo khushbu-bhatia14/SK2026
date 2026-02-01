@@ -1,0 +1,146 @@
+{% comment %}
+  Featured Collection Section
+{% endcomment %}
+
+<section class="section featured-collection" style="background: {{ section.settings.background_color }};">
+  <div class="container">
+    <div class="section-title">
+      {%- if section.settings.title != blank -%}
+        <h2 class="section-title__heading">{{ section.settings.title }}</h2>
+      {%- endif -%}
+      {%- if section.settings.subtitle != blank -%}
+        <p class="section-title__subheading">{{ section.settings.subtitle }}</p>
+      {%- endif -%}
+    </div>
+    
+    {%- if section.settings.collection != blank -%}
+      {%- assign collection = section.settings.collection -%}
+      
+      <div class="products-grid products-grid--{{ section.settings.products_per_row }}">
+        {%- for product in collection.products limit: section.settings.products_to_show -%}
+          {% render 'product-card', product: product, lazy_load: true %}
+        {%- else -%}
+          {%- for i in (1..section.settings.products_to_show) -%}
+            <div class="product-card product-card--placeholder">
+              <div class="product-card__image-wrapper">
+                <div style="padding-top: 133%; background: var(--color-secondary-bg);"></div>
+              </div>
+              <div class="product-card__content">
+                <h3 class="product-card__title"><a href="#">Product Title</a></h3>
+                <div class="product-card__price">
+                  <span class="product-card__price-current">₹999</span>
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        {%- endfor -%}
+      </div>
+      
+      {%- if section.settings.show_view_all -%}
+        <div class="featured-collection__footer">
+          <a href="{{ collection.url }}" class="button button--secondary">
+            {{ section.settings.view_all_text | default: 'View All' }}
+          </a>
+        </div>
+      {%- endif -%}
+    {%- else -%}
+      <div class="products-grid products-grid--{{ section.settings.products_per_row }}">
+        {%- for i in (1..section.settings.products_to_show) -%}
+          <div class="product-card product-card--placeholder">
+            <div class="product-card__image-wrapper">
+              <div style="padding-top: 133%; background: var(--color-secondary-bg);"></div>
+            </div>
+            <div class="product-card__content">
+              <h3 class="product-card__title"><a href="#">Product Title</a></h3>
+              <div class="product-card__price">
+                <span class="product-card__price-current">₹999</span>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  .featured-collection__footer {
+    text-align: center;
+    margin-top: 2.5rem;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Featured Collection",
+  "tag": "section",
+  "class": "section-featured-collection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Best Sellers"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Our most loved pieces, curated just for you."
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Products to show",
+      "min": 4,
+      "max": 12,
+      "step": 2,
+      "default": 8
+    },
+    {
+      "type": "select",
+      "id": "products_per_row",
+      "label": "Products per row",
+      "options": [
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" },
+        { "value": "4", "label": "4" },
+        { "value": "5", "label": "5" }
+      ],
+      "default": "4"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show 'View All' button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "view_all_text",
+      "label": "View all button text",
+      "default": "View All Products"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "transparent"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Collection",
+      "settings": {
+        "title": "Best Sellers",
+        "subtitle": "Our most loved pieces, curated just for you."
+      }
+    }
+  ]
+}
+{% endschema %}
