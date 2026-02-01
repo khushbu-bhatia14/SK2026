@@ -1,0 +1,321 @@
+{% comment %}
+  Brand Story Section - About the Brand
+{% endcomment %}
+
+<section class="section brand-story" style="background: {{ section.settings.background_color }};">
+  <div class="container">
+    <div class="brand-story__grid {% if section.settings.image_position == 'right' %}brand-story__grid--reversed{% endif %}">
+      {%- if section.settings.image != blank -%}
+        <div class="brand-story__image">
+          <img 
+            src="{{ section.settings.image | image_url: width: 800 }}" 
+            alt="{{ section.settings.image.alt | escape }}" 
+            loading="lazy"
+            width="{{ section.settings.image.width }}"
+            height="{{ section.settings.image.height }}"
+          >
+        </div>
+      {%- else -%}
+        <div class="brand-story__image brand-story__image--placeholder">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+            <circle cx="8.5" cy="8.5" r="1.5"></circle>
+            <polyline points="21 15 16 10 5 21"></polyline>
+          </svg>
+        </div>
+      {%- endif -%}
+      
+      <div class="brand-story__content">
+        {%- if section.settings.subheading != blank -%}
+          <span class="brand-story__subheading">{{ section.settings.subheading }}</span>
+        {%- endif -%}
+        
+        {%- if section.settings.title != blank -%}
+          <h2 class="brand-story__title">{{ section.settings.title }}</h2>
+        {%- endif -%}
+        
+        {%- if section.settings.text != blank -%}
+          <div class="brand-story__text">{{ section.settings.text }}</div>
+        {%- endif -%}
+        
+        {%- if section.settings.button_text != blank -%}
+          <a href="{{ section.settings.button_link }}" class="button button--primary">
+            {{ section.settings.button_text }}
+          </a>
+        {%- endif -%}
+        
+        {%- if section.blocks.size > 0 -%}
+          <div class="brand-story__features">
+            {%- for block in section.blocks -%}
+              <div class="brand-story__feature" {{ block.shopify_attributes }}>
+                {%- if block.settings.icon != 'none' -%}
+                  <div class="brand-story__feature-icon">
+                    {% render 'icon', icon: block.settings.icon, size: 24 %}
+                  </div>
+                {%- endif -%}
+                <div class="brand-story__feature-content">
+                  <h4 class="brand-story__feature-title">{{ block.settings.title }}</h4>
+                  {%- if block.settings.text != blank -%}
+                    <p class="brand-story__feature-text">{{ block.settings.text }}</p>
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .brand-story__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  
+  .brand-story__grid--reversed {
+    direction: rtl;
+  }
+  
+  .brand-story__grid--reversed > * {
+    direction: ltr;
+  }
+  
+  .brand-story__image img {
+    width: 100%;
+    border-radius: var(--border-radius);
+  }
+  
+  .brand-story__image--placeholder {
+    aspect-ratio: 4/5;
+    background: var(--color-secondary-bg);
+    border-radius: var(--border-radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .brand-story__image--placeholder svg {
+    width: 60px;
+    height: 60px;
+    opacity: 0.3;
+  }
+  
+  .brand-story__subheading {
+    display: inline-block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+  }
+  
+  .brand-story__title {
+    font-size: 2.25rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .brand-story__text {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    opacity: 0.85;
+    margin-bottom: 2rem;
+  }
+  
+  .brand-story__text p {
+    margin-bottom: 1rem;
+  }
+  
+  .brand-story__features {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin-top: 2.5rem;
+  }
+  
+  .brand-story__feature {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .brand-story__feature-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, rgba(var(--color-primary-rgb), 0.1), rgba(var(--color-secondary-rgb), 0.1));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    color: var(--color-primary);
+  }
+  
+  .brand-story__feature-title {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+  
+  .brand-story__feature-text {
+    font-size: 0.875rem;
+    opacity: 0.7;
+    margin: 0;
+  }
+  
+  @media (max-width: 768px) {
+    .brand-story__grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    
+    .brand-story__grid--reversed {
+      direction: ltr;
+    }
+    
+    .brand-story__title {
+      font-size: 1.75rem;
+    }
+    
+    .brand-story__features {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Brand Story",
+  "tag": "section",
+  "class": "section-brand-story",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Our Story"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Why SadaKappda?"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>SadaKappda is built on the belief that refinement does not need exaggeration \u2014 it is recognized through balance, restraint, and consistency.</p><p>Premium in feel. Thoughtful in design. Honest in price.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "Learn More"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "transparent"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "none", "label": "None" },
+            { "value": "check", "label": "Check" },
+            { "value": "shield", "label": "Shield" },
+            { "value": "heart", "label": "Heart" },
+            { "value": "star", "label": "Star" },
+            { "value": "package", "label": "Package" },
+            { "value": "truck", "label": "Truck" }
+          ],
+          "default": "check"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Premium Quality"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "300+ GSM premium fabric"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Story",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "check",
+            "title": "Premium Fabric",
+            "text": "300+ GSM quality cotton"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "heart",
+            "title": "Crafted with Care",
+            "text": "Attention to every detail"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "package",
+            "title": "Honest Pricing",
+            "text": "No hidden markups"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "icon": "star",
+            "title": "Timeless Design",
+            "text": "Beyond seasonal trends"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
