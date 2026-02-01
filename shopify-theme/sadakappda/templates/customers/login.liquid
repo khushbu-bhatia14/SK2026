@@ -1,0 +1,94 @@
+{% comment %}
+  Customer Login Template
+{% endcomment %}
+
+<section class="section customer-auth">
+  <div class="container">
+    <div class="auth-form">
+      <h1 class="auth-form__title">Login</h1>
+      
+      {% form 'customer_login' %}
+        {{ form.errors | default_errors }}
+        
+        <div class="auth-form__field">
+          <label for="customer-email">Email</label>
+          <input type="email" id="customer-email" name="customer[email]" required autocomplete="email">
+        </div>
+        
+        <div class="auth-form__field">
+          <label for="customer-password">Password</label>
+          <input type="password" id="customer-password" name="customer[password]" required autocomplete="current-password">
+        </div>
+        
+        <div class="auth-form__actions">
+          <button type="submit" class="button button--primary button--full-width">Sign In</button>
+        </div>
+        
+        <a href="#recover" class="auth-form__link" id="recover-link">Forgot your password?</a>
+      {% endform %}
+      
+      <div class="auth-form__divider"><span>or</span></div>
+      
+      <p class="auth-form__register">
+        Don't have an account? <a href="/account/register">Create one</a>
+      </p>
+    </div>
+    
+    {%- comment %} Password Recovery Form {% endcomment -%}
+    <div id="recover" class="auth-form" style="display: none;">
+      <h1 class="auth-form__title">Reset Password</h1>
+      <p>We will send you an email to reset your password.</p>
+      
+      {% form 'recover_customer_password' %}
+        {{ form.errors | default_errors }}
+        
+        {%- if form.posted_successfully? -%}
+          <div class="auth-form__success">
+            <p>We've sent you an email with a link to update your password.</p>
+          </div>
+        {%- endif -%}
+        
+        <div class="auth-form__field">
+          <label for="recover-email">Email</label>
+          <input type="email" id="recover-email" name="email" required autocomplete="email">
+        </div>
+        
+        <div class="auth-form__actions">
+          <button type="submit" class="button button--primary button--full-width">Submit</button>
+        </div>
+        
+        <a href="#login" class="auth-form__link" id="login-link">Cancel</a>
+      {% endform %}
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const recoverLink = document.getElementById('recover-link');
+    const loginLink = document.getElementById('login-link');
+    const loginForm = document.querySelector('.auth-form:first-of-type');
+    const recoverForm = document.getElementById('recover');
+    
+    if (recoverLink) {
+      recoverLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        loginForm.style.display = 'none';
+        recoverForm.style.display = 'block';
+      });
+    }
+    
+    if (loginLink) {
+      loginLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        recoverForm.style.display = 'none';
+        loginForm.style.display = 'block';
+      });
+    }
+    
+    if (window.location.hash === '#recover') {
+      loginForm.style.display = 'none';
+      recoverForm.style.display = 'block';
+    }
+  });
+</script>

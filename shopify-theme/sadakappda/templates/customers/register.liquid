@@ -1,0 +1,61 @@
+{% comment %}
+  Customer Register Template
+{% endcomment %}
+
+<section class="section customer-auth">
+  <div class="container">
+    <div class="auth-form">
+      <h1 class="auth-form__title">Create Account</h1>
+      
+      {% form 'create_customer' %}
+        {{ form.errors | default_errors }}
+        
+        <div class="auth-form__row">
+          <div class="auth-form__field">
+            <label for="customer-first-name">First Name</label>
+            <input type="text" id="customer-first-name" name="customer[first_name]" required autocomplete="given-name">
+          </div>
+          
+          <div class="auth-form__field">
+            <label for="customer-last-name">Last Name</label>
+            <input type="text" id="customer-last-name" name="customer[last_name]" required autocomplete="family-name">
+          </div>
+        </div>
+        
+        <div class="auth-form__field">
+          <label for="customer-email">Email</label>
+          <input type="email" id="customer-email" name="customer[email]" required autocomplete="email">
+        </div>
+        
+        <div class="auth-form__field">
+          <label for="customer-password">Password</label>
+          <input type="password" id="customer-password" name="customer[password]" required autocomplete="new-password">
+        </div>
+        
+        <div class="auth-form__actions">
+          <button type="submit" class="button button--primary button--full-width">Create Account</button>
+        </div>
+      {% endform %}
+      
+      <div class="auth-form__divider"><span>or</span></div>
+      
+      <p class="auth-form__register">
+        Already have an account? <a href="/account/login">Sign in</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .auth-form__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  
+  @media (max-width: 480px) {
+    .auth-form__row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

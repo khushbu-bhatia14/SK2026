@@ -1,0 +1,82 @@
+{% comment %}
+  Customer Account Template
+{% endcomment %}
+
+<section class="section customer-account">
+  <div class="container">
+    <div class="customer-layout">
+      <aside class="customer-sidebar">
+        <ul class="customer-sidebar__nav">
+          <li>
+            <a href="/account" class="customer-sidebar__link is-active">
+              {% render 'icon', icon: 'user', size: 18 %}
+              <span>Account Overview</span>
+            </a>
+          </li>
+          <li>
+            <a href="/account/addresses" class="customer-sidebar__link">
+              {% render 'icon', icon: 'package', size: 18 %}
+              <span>Addresses</span>
+            </a>
+          </li>
+          <li>
+            <a href="/account/logout" class="customer-sidebar__link">
+              <span>Logout</span>
+            </a>
+          </li>
+        </ul>
+      </aside>
+      
+      <div class="customer-content">
+        <div class="customer-content__header">
+          <h1 class="customer-content__title">Welcome, {{ customer.first_name }}</h1>
+          <p>{{ customer.email }}</p>
+        </div>
+        
+        <div class="customer-orders">
+          <h2>Order History</h2>
+          
+          {%- if customer.orders.size > 0 -%}
+            <table class="orders-table">
+              <thead>
+                <tr>
+                  <th>Order</th>
+                  <th>Date</th>
+                  <th>Payment</th>
+                  <th>Status</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                {%- for order in customer.orders -%}
+                  <tr>
+                    <td data-label="Order">
+                      <a href="{{ order.customer_url }}">{{ order.name }}</a>
+                    </td>
+                    <td data-label="Date">{{ order.created_at | date: '%B %d, %Y' }}</td>
+                    <td data-label="Payment">
+                      <span class="orders-table__status orders-table__status--{{ order.financial_status }}">
+                        {{ order.financial_status }}
+                      </span>
+                    </td>
+                    <td data-label="Status">
+                      <span class="orders-table__status orders-table__status--{{ order.fulfillment_status | default: 'unfulfilled' }}">
+                        {{ order.fulfillment_status | default: 'Unfulfilled' }}
+                      </span>
+                    </td>
+                    <td data-label="Total">{{ order.total_price | money }}</td>
+                  </tr>
+                {%- endfor -%}
+              </tbody>
+            </table>
+          {%- else -%}
+            <div class="empty-state">
+              <p class="empty-state__text">You haven't placed any orders yet.</p>
+              <a href="/collections/all" class="button button--primary">Start Shopping</a>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

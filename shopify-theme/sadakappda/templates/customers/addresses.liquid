@@ -1,0 +1,186 @@
+{% comment %}
+  Customer Addresses Template
+{% endcomment %}
+
+<section class="section customer-addresses">
+  <div class="container">
+    <div class="customer-layout">
+      <aside class="customer-sidebar">
+        <ul class="customer-sidebar__nav">
+          <li>
+            <a href="/account" class="customer-sidebar__link">
+              {% render 'icon', icon: 'user', size: 18 %}
+              <span>Account Overview</span>
+            </a>
+          </li>
+          <li>
+            <a href="/account/addresses" class="customer-sidebar__link is-active">
+              {% render 'icon', icon: 'package', size: 18 %}
+              <span>Addresses</span>
+            </a>
+          </li>
+          <li>
+            <a href="/account/logout" class="customer-sidebar__link">
+              <span>Logout</span>
+            </a>
+          </li>
+        </ul>
+      </aside>
+      
+      <div class="customer-content">
+        <div class="customer-content__header">
+          <h1 class="customer-content__title">Your Addresses</h1>
+        </div>
+        
+        <button type="button" class="button button--primary" onclick="document.getElementById('add-address-form').style.display='block';this.style.display='none';">
+          Add New Address
+        </button>
+        
+        {%- comment %} Add Address Form {% endcomment -%}
+        <div id="add-address-form" class="address-form" style="display: none;">
+          {% form 'customer_address', customer.new_address %}
+            <h3>Add New Address</h3>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="address-first-name">First Name</label>
+                <input type="text" id="address-first-name" name="address[first_name]" required>
+              </div>
+              <div class="form-group">
+                <label for="address-last-name">Last Name</label>
+                <input type="text" id="address-last-name" name="address[last_name]" required>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="address-company">Company (optional)</label>
+              <input type="text" id="address-company" name="address[company]">
+            </div>
+            
+            <div class="form-group">
+              <label for="address-address1">Address</label>
+              <input type="text" id="address-address1" name="address[address1]" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="address-address2">Apartment, suite, etc. (optional)</label>
+              <input type="text" id="address-address2" name="address[address2]">
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="address-city">City</label>
+                <input type="text" id="address-city" name="address[city]" required>
+              </div>
+              <div class="form-group">
+                <label for="address-zip">PIN Code</label>
+                <input type="text" id="address-zip" name="address[zip]" required>
+              </div>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="address-country">Country</label>
+                <select id="address-country" name="address[country]" data-default="{{ form.country }}">
+                  {{ all_country_option_tags }}
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="address-province">State</label>
+                <select id="address-province" name="address[province]" data-default="{{ form.province }}">
+                </select>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="address-phone">Phone</label>
+              <input type="tel" id="address-phone" name="address[phone]">
+            </div>
+            
+            <div class="form-group">
+              <label>
+                <input type="checkbox" name="address[default]" value="1">
+                Set as default address
+              </label>
+            </div>
+            
+            <div class="form-actions">
+              <button type="submit" class="button button--primary">Add Address</button>
+              <button type="button" class="button button--secondary" onclick="document.getElementById('add-address-form').style.display='none';document.querySelector('.customer-content button').style.display='inline-flex';">
+                Cancel
+              </button>
+            </div>
+          {% endform %}
+        </div>
+        
+        {%- comment %} Existing Addresses {% endcomment -%}
+        <div class="addresses-grid">
+          {%- for address in customer.addresses -%}
+            <div class="address-card">
+              {%- if address == customer.default_address -%}
+                <span class="address-card__default">Default</span>
+              {%- endif -%}
+              
+              <p class="address-card__name">{{ address.first_name }} {{ address.last_name }}</p>
+              <div class="address-card__details">
+                {{ address | format_address }}
+              </div>
+              
+              <div class="address-card__actions">
+                <button type="button" class="address-card__action" onclick="toggleEditForm('{{ address.id }}')">Edit</button>
+                {% form 'customer_address', address %}
+                  <input type="hidden" name="_method" value="delete">
+                  <button type="submit" class="address-card__action address-card__action--delete" onclick="return confirm('Are you sure?');">Delete</button>
+                {% endform %}
+              </div>
+            </div>
+          {%- else -%}
+            <p>You haven't saved any addresses yet.</p>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .address-form {
+    background: var(--color-secondary-bg);
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    margin: 1.5rem 0;
+  }
+  
+  .address-form h3 {
+    margin-bottom: 1.5rem;
+  }
+  
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  @media (max-width: 480px) {
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  function toggleEditForm(addressId) {
+    // Simple implementation - in production you'd show an edit modal
+    alert('Edit functionality requires JavaScript form handling');
+  }
+</script>
