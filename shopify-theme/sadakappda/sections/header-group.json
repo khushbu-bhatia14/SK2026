@@ -1,0 +1,27 @@
+{%- comment -%}
+  Header Group - Contains announcement bar and header
+{%- endcomment -%}
+
+{%- for block in section.blocks -%}
+  {%- case block.type -%}
+    {%- when '@app' -%}
+      {% render block %}
+  {%- endcase -%}
+{%- endfor -%}
+
+{% schema %}
+{
+  "name": "Header Group",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "settings": {}
+    },
+    "header": {
+      "type": "header",
+      "settings": {}
+    }
+  },
+  "order": ["announcement-bar", "header"]
+}
+{% endschema %}
