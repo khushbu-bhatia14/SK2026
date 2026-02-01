@@ -1,0 +1,47 @@
+{% comment %}
+  Product Recommendations Section
+{% endcomment %}
+
+<section class="section product-recommendations">
+  <div class="container">
+    <div class="section-title">
+      <h2 class="section-title__heading">You May Also Like</h2>
+    </div>
+    
+    <div id="product-recommendations" data-product-id="{{ product.id }}" data-limit="4">
+      {%- if recommendations.products_count > 0 -%}
+        <div class="products-grid products-grid--4">
+          {%- for product in recommendations.products -%}
+            {% render 'product-card', product: product, lazy_load: true %}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const container = document.getElementById('product-recommendations');
+    if (!container) return;
+    
+    const productId = container.dataset.productId;
+    const limit = container.dataset.limit;
+    
+    fetch(`/recommendations/products.json?product_id=${productId}&limit=${limit}`)
+      .then(response => response.json())
+      .then(data => {
+        if (data.products && data.products.length > 0) {
+          // Products are rendered server-side via Liquid
+        }
+      })
+      .catch(err => console.error('Error loading recommendations:', err));
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Product Recommendations",
+  "settings": []
+}
+{% endschema %}
