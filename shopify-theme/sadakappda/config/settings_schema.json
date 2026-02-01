@@ -1,0 +1,369 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "SadaKappda Premium",
+    "theme_version": "1.0.0",
+    "theme_author": "SadaKappda",
+    "theme_documentation_url": "https://sadakappda.com",
+    "theme_support_url": "mailto:reachus@SadaKappda.com"
+  },
+  {
+    "name": "Color Mode",
+    "settings": [
+      {
+        "type": "select",
+        "id": "color_mode",
+        "label": "Theme Color Mode",
+        "options": [
+          { "value": "light", "label": "Light Mode" },
+          { "value": "dark", "label": "Dark Mode" },
+          { "value": "mixed", "label": "Mixed (Dark Header/Footer, Light Body)" }
+        ],
+        "default": "mixed",
+        "info": "Choose the overall color scheme for your store"
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Primary Colors"
+      },
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Primary Accent Color",
+        "default": "#FF6B35",
+        "info": "Orange accent color"
+      },
+      {
+        "type": "color",
+        "id": "color_secondary",
+        "label": "Secondary Accent Color",
+        "default": "#E91E8C",
+        "info": "Magenta/Pink accent color"
+      },
+      {
+        "type": "header",
+        "content": "Light Mode Colors"
+      },
+      {
+        "type": "color",
+        "id": "color_light_bg",
+        "label": "Light Background",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_light_text",
+        "label": "Light Mode Text",
+        "default": "#1A1A1A"
+      },
+      {
+        "type": "color",
+        "id": "color_light_secondary_bg",
+        "label": "Light Secondary Background",
+        "default": "#F8F8F8"
+      },
+      {
+        "type": "header",
+        "content": "Dark Mode Colors"
+      },
+      {
+        "type": "color",
+        "id": "color_dark_bg",
+        "label": "Dark Background",
+        "default": "#0A0A0A"
+      },
+      {
+        "type": "color",
+        "id": "color_dark_text",
+        "label": "Dark Mode Text",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_dark_secondary_bg",
+        "label": "Dark Secondary Background",
+        "default": "#1A1A1A"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "font_heading",
+        "label": "Heading Font",
+        "default": "josefin_sans_n4"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_body",
+        "label": "Body Font",
+        "default": "assistant_n4"
+      },
+      {
+        "type": "range",
+        "id": "font_size_base",
+        "label": "Base Font Size",
+        "min": 14,
+        "max": 20,
+        "step": 1,
+        "default": 16,
+        "unit": "px"
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "range",
+        "id": "page_width",
+        "label": "Page Width",
+        "min": 1000,
+        "max": 1600,
+        "step": 50,
+        "default": 1400,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "section_spacing",
+        "label": "Section Spacing",
+        "min": 20,
+        "max": 100,
+        "step": 5,
+        "default": 60,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "border_radius",
+        "label": "Border Radius",
+        "min": 0,
+        "max": 20,
+        "step": 2,
+        "default": 8,
+        "unit": "px"
+      }
+    ]
+  },
+  {
+    "name": "Buttons",
+    "settings": [
+      {
+        "type": "select",
+        "id": "button_style",
+        "label": "Button Style",
+        "options": [
+          { "value": "rounded", "label": "Rounded" },
+          { "value": "pill", "label": "Pill Shape" },
+          { "value": "sharp", "label": "Sharp Corners" }
+        ],
+        "default": "rounded"
+      },
+      {
+        "type": "select",
+        "id": "button_primary_style",
+        "label": "Primary Button Style",
+        "options": [
+          { "value": "solid", "label": "Solid Color" },
+          { "value": "gradient", "label": "Gradient" },
+          { "value": "outline", "label": "Outline" }
+        ],
+        "default": "gradient"
+      }
+    ]
+  },
+  {
+    "name": "Logo & Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_light",
+        "label": "Logo for Light Background",
+        "info": "Optional: Use different logo on light backgrounds"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "label": "Logo Width",
+        "min": 50,
+        "max": 300,
+        "step": 10,
+        "default": 150,
+        "unit": "px"
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon"
+      }
+    ]
+  },
+  {
+    "name": "Social Media",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_instagram",
+        "label": "Instagram URL"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook",
+        "label": "Facebook URL"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter",
+        "label": "Twitter/X URL"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube",
+        "label": "YouTube URL"
+      },
+      {
+        "type": "text",
+        "id": "social_pinterest",
+        "label": "Pinterest URL"
+      }
+    ]
+  },
+  {
+    "name": "Contact Information",
+    "settings": [
+      {
+        "type": "text",
+        "id": "contact_email",
+        "label": "Support Email",
+        "default": "reachus@SadaKappda.com"
+      },
+      {
+        "type": "text",
+        "id": "contact_phone",
+        "label": "Phone Number"
+      },
+      {
+        "type": "text",
+        "id": "contact_whatsapp",
+        "label": "WhatsApp Number",
+        "info": "Include country code (e.g., 919876543210)"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_whatsapp_button",
+        "label": "Show Floating WhatsApp Button",
+        "default": true
+      }
+    ]
+  },
+  {
+    "name": "Trust Badges",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_cod_badge",
+        "label": "Show COD Available Badge",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_returns_badge",
+        "label": "Show Easy Returns Badge",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_shipping_badge",
+        "label": "Show Fast Shipping Badge",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_secure_badge",
+        "label": "Show Secure Payments Badge",
+        "default": true
+      },
+      {
+        "type": "text",
+        "id": "delivery_timeline",
+        "label": "Delivery Timeline Text",
+        "default": "3-7 Business Days"
+      }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "select",
+        "id": "cart_type",
+        "label": "Cart Type",
+        "options": [
+          { "value": "drawer", "label": "Slide-out Drawer" },
+          { "value": "page", "label": "Cart Page" }
+        ],
+        "default": "drawer"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_free_shipping_bar",
+        "label": "Show Free Shipping Progress Bar",
+        "default": true
+      },
+      {
+        "type": "number",
+        "id": "free_shipping_threshold",
+        "label": "Free Shipping Threshold (₹)",
+        "default": 999
+      }
+    ]
+  },
+  {
+    "name": "Product Cards",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_color_swatches",
+        "label": "Show Color Swatches",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_hover_image",
+        "label": "Show Second Image on Hover",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_quick_add",
+        "label": "Show Quick Add Button",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_sale_badge",
+        "label": "Show Sale Badge",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_new_badge",
+        "label": "Show New Badge",
+        "default": true
+      }
+    ]
+  }
+]
