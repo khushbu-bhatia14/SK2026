@@ -1,0 +1,100 @@
+{% comment %}
+  Search Template
+{% endcomment %}
+
+<section class="section search-results-page">
+  <div class="container">
+    <div class="search-results__header">
+      <h1>Search Results</h1>
+      
+      <form action="/search" method="get" class="search-results__form">
+        <input type="hidden" name="type" value="product">
+        <input type="search" name="q" value="{{ search.terms | escape }}" placeholder="Search..." class="search-results__input">
+        <button type="submit" class="button button--primary">Search</button>
+      </form>
+    </div>
+    
+    {%- if search.performed -%}
+      <p class="search-results__count">
+        {%- if search.results_count == 0 -%}
+          No results found for "{{ search.terms }}"
+        {%- else -%}
+          {{ search.results_count }} results for "{{ search.terms }}"
+        {%- endif -%}
+      </p>
+      
+      {%- if search.results_count > 0 -%}
+        {%- paginate search.results by 16 -%}
+          <div class="products-grid products-grid--4">
+            {%- for item in search.results -%}
+              {%- if item.object_type == 'product' -%}
+                {% render 'product-card', product: item, lazy_load: true %}
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+          
+          {%- if paginate.pages > 1 -%}
+            <nav class="pagination" aria-label="Pagination">
+              {%- if paginate.previous -%}
+                <a href="{{ paginate.previous.url }}" class="pagination__link pagination__link--prev">
+                  {% render 'icon', icon: 'chevron-left', size: 18 %}
+                  <span>Previous</span>
+                </a>
+              {%- endif -%}
+              
+              <div class="pagination__pages">
+                {%- for part in paginate.parts -%}
+                  {%- if part.is_link -%}
+                    <a href="{{ part.url }}" class="pagination__link">{{ part.title }}</a>
+                  {%- else -%}
+                    <span class="pagination__link {% if part.title == paginate.current_page %}pagination__link--current{% endif %}">{{ part.title }}</span>
+                  {%- endif -%}
+                {%- endfor -%}
+              </div>
+              
+              {%- if paginate.next -%}
+                <a href="{{ paginate.next.url }}" class="pagination__link pagination__link--next">
+                  <span>Next</span>
+                  {% render 'icon', icon: 'chevron-right', size: 18 %}
+                </a>
+              {%- endif -%}
+            </nav>
+          {%- endif -%}
+        {%- endpaginate -%}
+      {%- else -%}
+        <div class="empty-state">
+          <h2 class="empty-state__title">No products found</h2>
+          <p class="empty-state__text">Try different keywords or browse our collections.</p>
+          <a href="/collections/all" class="button button--primary">Shop All Products</a>
+        </div>
+      {%- endif -%}
+    {%- else -%}
+      <p class="search-results__count">Enter a search term to find products.</p>
+    {%- endif -%}
+  </div>
+</section>
+
+<style>
+  .search-results__header {
+    margin-bottom: 2rem;
+  }
+  
+  .search-results__header h1 {
+    margin-bottom: 1.5rem;
+  }
+  
+  .search-results__form {
+    display: flex;
+    gap: 0.5rem;
+    max-width: 500px;
+  }
+  
+  .search-results__input {
+    flex: 1;
+  }
+  
+  .search-results__count {
+    margin-bottom: 2rem;
+    opacity: 0.7;
+  }
+</style>

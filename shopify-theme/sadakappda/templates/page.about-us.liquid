@@ -1,0 +1,191 @@
+{% comment %}
+  About Us Page Template
+{% endcomment %}
+
+{% section 'page-header' %}
+
+<section class="section about-hero">
+  <div class="container">
+    <div class="about-hero__content">
+      <span class="about-hero__tag">Our Story</span>
+      <h2 class="about-hero__title">Quietly Premium</h2>
+      <p class="about-hero__text">
+        Premium lives in intention. It is present in carefully chosen fabrics that feel composed on the skin, in silhouettes that fall effortlessly, and in details that reveal themselves over time.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section about-philosophy">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-block">
+        <h3>Where Luxury Feels Natural</h3>
+        <p>Luxury begins with how something makes you feel. At SadaKappda, premium is defined by fabric integrity, thoughtful construction, and timeless design. Each piece is created to offer a refined experience while remaining accessible — proving that quality and affordability can coexist when design is honest and purpose-driven.</p>
+      </div>
+      
+      <div class="about-block">
+        <h3>Designed with Clarity</h3>
+        <p>Clarity guides every design decision. Clean lines, balanced proportions, and calm color palettes come together to create clothing that feels settled and enduring. SadaKappda pieces are designed to blend seamlessly into your life, elevating everyday moments without demanding attention.</p>
+      </div>
+      
+      <div class="about-block">
+        <h3>A Conscious Way of Creating</h3>
+        <p>Consciousness is woven into the process. From sourcing to finishing, each step is approached with care, patience, and respect. SadaKappda embraces a slower rhythm — one that values craftsmanship, longevity, and mindful production over fleeting cycles.</p>
+      </div>
+      
+      <div class="about-block">
+        <h3>Clothing with a Soul</h3>
+        <p>A quiet sense of harmony defines the SadaKappda spirit. There is a subtle, almost cosmic calm in pieces that feel grounded yet expansive — clothing that aligns with your inner rhythm. Designed to hold space for movement, stillness, and self-expression, each garment becomes a natural extension of you.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section about-values">
+  <div class="container">
+    <div class="about-values__header">
+      <h2>The SadaKappda Philosophy</h2>
+    </div>
+    <div class="about-values__grid">
+      <div class="about-value">
+        <div class="about-value__icon">
+          {% render 'icon', icon: 'heart', size: 32 %}
+        </div>
+        <h4>True premium is felt, not declared.</h4>
+      </div>
+      <div class="about-value">
+        <div class="about-value__icon">
+          {% render 'icon', icon: 'check', size: 32 %}
+        </div>
+        <h4>Simplicity is a mark of confidence.</h4>
+      </div>
+      <div class="about-value">
+        <div class="about-value__icon">
+          {% render 'icon', icon: 'star', size: 32 %}
+        </div>
+        <h4>Quality earns loyalty through experience.</h4>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section about-tagline" style="background: var(--color-dark-bg); color: var(--color-dark-text);">
+  <div class="container">
+    <div class="about-tagline__content">
+      <p class="about-tagline__text">Premium in feel.</p>
+      <p class="about-tagline__text">Thoughtful in design.</p>
+      <p class="about-tagline__text">Honest in price.</p>
+    </div>
+  </div>
+</section>
+
+{% section 'newsletter' %}
+
+<style>
+  .about-hero {
+    text-align: center;
+  }
+  
+  .about-hero__content {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  
+  .about-hero__tag {
+    display: inline-block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+  }
+  
+  .about-hero__title {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .about-hero__text {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    opacity: 0.85;
+  }
+  
+  .about-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3rem;
+  }
+  
+  .about-block h3 {
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+  }
+  
+  .about-block p {
+    line-height: 1.8;
+    opacity: 0.85;
+  }
+  
+  .about-values__header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+  
+  .about-values__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    text-align: center;
+  }
+  
+  .about-value__icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 1.5rem;
+    background: linear-gradient(135deg, rgba(var(--color-primary-rgb), 0.1), rgba(var(--color-secondary-rgb), 0.1));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-primary);
+  }
+  
+  .about-value h4 {
+    font-size: 1.0625rem;
+    line-height: 1.5;
+  }
+  
+  .about-tagline {
+    text-align: center;
+    padding: 5rem 0;
+  }
+  
+  .about-tagline__text {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+  }
+  
+  @media (max-width: 768px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+    
+    .about-values__grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .about-hero__title {
+      font-size: 2rem;
+    }
+    
+    .about-tagline__text {
+      font-size: 1.5rem;
+    }
+  }
+</style>
