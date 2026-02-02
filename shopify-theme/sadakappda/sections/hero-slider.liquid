@@ -12,8 +12,10 @@
           style="
             {%- if block.settings.background_image != blank -%}
               background-image: url('{{ block.settings.background_image | image_url: width: 1920 }}');
+            {%- else -%}
+              background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
             {%- endif -%}
-            background-color: {{ block.settings.background_color }};
+            background-color: {{ block.settings.background_color | default: '#1A1A1A' }};
           "
         >
           {%- if block.settings.background_video != blank -%}
@@ -22,9 +24,9 @@
             </video>
           {%- endif -%}
           
-          <div class="hero-slide__overlay" style="opacity: {{ block.settings.overlay_opacity | divided_by: 100.0 }};"></div>
+          <div class="hero-slide__overlay" style="opacity: {{ block.settings.overlay_opacity | default: 30 | divided_by: 100.0 }};"></div>
           
-          <div class="hero-slide__content" style="text-align: {{ block.settings.text_alignment }};">
+          <div class="hero-slide__content" style="text-align: {{ block.settings.text_alignment | default: 'left' }};">
             <div class="container">
               <div class="hero-slide__inner">
                 {%- if block.settings.subheading != blank -%}
@@ -32,26 +34,26 @@
                 {%- endif -%}
                 
                 {%- if block.settings.heading != blank -%}
-                  <h1 class="hero-slide__heading" style="color: {{ block.settings.text_color }};">
+                  <h1 class="hero-slide__heading" style="color: {{ block.settings.text_color | default: '#FFFFFF' }};">
                     {{ block.settings.heading }}
                   </h1>
                 {%- endif -%}
                 
                 {%- if block.settings.text != blank -%}
-                  <p class="hero-slide__text" style="color: {{ block.settings.text_color }};">
+                  <p class="hero-slide__text" style="color: {{ block.settings.text_color | default: '#FFFFFF' }};">
                     {{ block.settings.text }}
                   </p>
                 {%- endif -%}
                 
                 <div class="hero-slide__buttons">
                   {%- if block.settings.button_text != blank -%}
-                    <a href="{{ block.settings.button_link }}" class="button button--primary button--large">
+                    <a href="{{ block.settings.button_link | default: '/collections/all' }}" class="button button--primary button--large">
                       {{ block.settings.button_text }}
                     </a>
                   {%- endif -%}
                   
                   {%- if block.settings.button_text_2 != blank -%}
-                    <a href="{{ block.settings.button_link_2 }}" class="button button--secondary button--large" style="color: {{ block.settings.text_color }}; border-color: {{ block.settings.text_color }};">
+                    <a href="{{ block.settings.button_link_2 | default: '/collections/all' }}" class="button button--secondary button--large" style="color: {{ block.settings.text_color | default: '#FFFFFF' }}; border-color: {{ block.settings.text_color | default: '#FFFFFF' }};">
                       {{ block.settings.button_text_2 }}
                     </a>
                   {%- endif -%}
