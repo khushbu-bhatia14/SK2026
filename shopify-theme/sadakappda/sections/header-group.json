@@ -1,27 +1,21 @@
-{%- comment -%}
-  Header Group - Contains announcement bar and header
-{%- endcomment -%}
-
-{%- for block in section.blocks -%}
-  {%- case block.type -%}
-    {%- when '@app' -%}
-      {% render block %}
-  {%- endcase -%}
-{%- endfor -%}
-
-{% schema %}
 {
+  "type": "header",
   "name": "Header Group",
   "sections": {
     "announcement-bar": {
       "type": "announcement-bar",
-      "settings": {}
+      "settings": {
+        "text": "Free Shipping on orders above ₹999 | Easy Returns & Exchange | COD Available",
+        "show_bar": true
+      }
     },
     "header": {
       "type": "header",
-      "settings": {}
+      "settings": {
+        "menu": "main-menu",
+        "enable_sticky": true
+      }
     }
   },
   "order": ["announcement-bar", "header"]
 }
-{% endschema %}
