@@ -33,30 +33,40 @@
       {%- comment %} Desktop Navigation {% endcomment -%}
       <nav class="header__nav hidden--mobile" role="navigation">
         <ul class="header__nav-list">
-          {%- for link in section.settings.menu.links -%}
-            <li class="header__nav-item {% if link.links.size > 0 %}has-dropdown{% endif %}">
-              <a href="{{ link.url }}" class="header__nav-link {% if link.active %}is-active{% endif %}">
-                {{ link.title }}
+          {%- if section.settings.menu != blank and section.settings.menu.links.size > 0 -%}
+            {%- for link in section.settings.menu.links -%}
+              <li class="header__nav-item {% if link.links.size > 0 %}has-dropdown{% endif %}">
+                <a href="{{ link.url }}" class="header__nav-link {% if link.active %}is-active{% endif %}">
+                  {{ link.title }}
+                  {%- if link.links.size > 0 -%}
+                    {% render 'icon', icon: 'chevron-down', size: 16 %}
+                  {%- endif -%}
+                </a>
+                
                 {%- if link.links.size > 0 -%}
-                  {% render 'icon', icon: 'chevron-down', size: 16 %}
+                  <div class="header__dropdown">
+                    <ul class="header__dropdown-list">
+                      {%- for child_link in link.links -%}
+                        <li class="header__dropdown-item">
+                          <a href="{{ child_link.url }}" class="header__dropdown-link">
+                            {{ child_link.title }}
+                          </a>
+                        </li>
+                      {%- endfor -%}
+                    </ul>
+                  </div>
                 {%- endif -%}
-              </a>
-              
-              {%- if link.links.size > 0 -%}
-                <div class="header__dropdown">
-                  <ul class="header__dropdown-list">
-                    {%- for child_link in link.links -%}
-                      <li class="header__dropdown-item">
-                        <a href="{{ child_link.url }}" class="header__dropdown-link">
-                          {{ child_link.title }}
-                        </a>
-                      </li>
-                    {%- endfor -%}
-                  </ul>
-                </div>
-              {%- endif -%}
-            </li>
-          {%- endfor -%}
+              </li>
+            {%- endfor -%}
+          {%- else -%}
+            {%- comment %} Fallback menu when no menu is selected {% endcomment -%}
+            <li class="header__nav-item"><a href="/collections/all" class="header__nav-link">Shop All</a></li>
+            <li class="header__nav-item"><a href="/collections/men" class="header__nav-link">Men</a></li>
+            <li class="header__nav-item"><a href="/collections/women" class="header__nav-link">Women</a></li>
+            <li class="header__nav-item"><a href="/collections/new-arrivals" class="header__nav-link">New Arrivals</a></li>
+            <li class="header__nav-item"><a href="/collections/best-sellers" class="header__nav-link">Best Sellers</a></li>
+            <li class="header__nav-item"><a href="/pages/size-guide" class="header__nav-link">Size Guide</a></li>
+          {%- endif -%}
         </ul>
       </nav>
       
