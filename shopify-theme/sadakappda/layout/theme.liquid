@@ -8,10 +8,13 @@
   <link rel="canonical" href="{{ canonical_url }}">
   <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
 
+  {%- comment %} Favicon {% endcomment -%}
   {%- if settings.favicon != blank -%}
     <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    <link rel="apple-touch-icon" href="{{ settings.favicon | image_url: width: 180, height: 180 }}">
   {%- endif -%}
 
+  {%- comment %} Font Preconnect {% endcomment -%}
   {%- unless settings.font_heading.system? and settings.font_body.system? -%}
     <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
   {%- endunless -%}
@@ -32,6 +35,9 @@
   <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
   {{ content_for_header }}
 
+  {%- comment %} ========================================
+      FONT SETUP
+  ======================================== {% endcomment -%}
   {%- liquid
     assign font_heading = settings.font_heading
     assign font_body = settings.font_body
@@ -41,6 +47,9 @@
     assign font_body_italic = font_body | font_modify: 'style', 'italic'
   -%}
 
+  {%- comment %} ========================================
+      GLOBAL CSS VARIABLES FROM THEME SETTINGS
+  ======================================== {% endcomment -%}
   {% style %}
     {{ font_heading | font_face: font_display: 'swap' }}
     {{ font_body | font_face: font_display: 'swap' }}
@@ -50,73 +59,323 @@
     {{ font_body_italic | font_face: font_display: 'swap' }}
 
     :root {
-      /* Primary Colors */
+      /* ========================================
+         BRAND COLORS
+      ======================================== */
       --color-primary: {{ settings.color_primary }};
       --color-secondary: {{ settings.color_secondary }};
+      --color-accent: {{ settings.color_accent }};
+      
+      /* RGB versions for rgba() usage */
       --color-primary-rgb: {{ settings.color_primary | color_to_rgb | remove: 'rgb(' | remove: ')' }};
       --color-secondary-rgb: {{ settings.color_secondary | color_to_rgb | remove: 'rgb(' | remove: ')' }};
+      --color-accent-rgb: {{ settings.color_accent | color_to_rgb | remove: 'rgb(' | remove: ')' }};
       
-      /* Light Mode Colors */
-      --color-light-bg: {{ settings.color_light_bg }};
-      --color-light-text: {{ settings.color_light_text }};
-      --color-light-secondary-bg: {{ settings.color_light_secondary_bg }};
+      /* ========================================
+         BACKGROUND COLORS
+      ======================================== */
+      --color-background: {{ settings.color_background }};
+      --color-background-secondary: {{ settings.color_background_secondary }};
+      --color-background-rgb: {{ settings.color_background | color_to_rgb | remove: 'rgb(' | remove: ')' }};
       
-      /* Dark Mode Colors */
-      --color-dark-bg: {{ settings.color_dark_bg }};
-      --color-dark-text: {{ settings.color_dark_text }};
-      --color-dark-secondary-bg: {{ settings.color_dark_secondary_bg }};
+      /* ========================================
+         TEXT COLORS
+      ======================================== */
+      --color-text: {{ settings.color_text }};
+      --color-text-secondary: {{ settings.color_text_secondary }};
+      --color-text-rgb: {{ settings.color_text | color_to_rgb | remove: 'rgb(' | remove: ')' }};
       
-      /* Typography */
+      /* ========================================
+         HEADER COLORS (from Theme Settings)
+      ======================================== */
+      --color-header-bg: {{ settings.color_header_background }};
+      --color-header-text: {{ settings.color_header_text }};
+      --color-header-bg-rgb: {{ settings.color_header_background | color_to_rgb | remove: 'rgb(' | remove: ')' }};
+      
+      /* ========================================
+         FOOTER COLORS (from Theme Settings)
+      ======================================== */
+      --color-footer-bg: {{ settings.color_footer_background }};
+      --color-footer-text: {{ settings.color_footer_text }};
+      --color-footer-bg-rgb: {{ settings.color_footer_background | color_to_rgb | remove: 'rgb(' | remove: ')' }};
+      
+      /* ========================================
+         BUTTON COLORS (from Theme Settings)
+      ======================================== */
+      --color-button-bg: {{ settings.color_button_background }};
+      --color-button-text: {{ settings.color_button_text }};
+      --color-button-hover: {{ settings.color_button_hover }};
+      
+      /* ========================================
+         BORDER COLOR
+      ======================================== */
+      --color-border: {{ settings.color_border }};
+      --color-border-rgb: {{ settings.color_border | color_to_rgb | remove: 'rgb(' | remove: ')' }};
+      
+      /* ========================================
+         TYPOGRAPHY
+      ======================================== */
       --font-heading: {{ font_heading.family }}, {{ font_heading.fallback_families }};
-      --font-heading-weight: {{ font_heading.weight }};
+      --font-heading-weight: {{ settings.heading_weight | default: font_heading.weight }};
       --font-heading-style: {{ font_heading.style }};
+      
       --font-body: {{ font_body.family }}, {{ font_body.fallback_families }};
-      --font-body-weight: {{ font_body.weight }};
+      --font-body-weight: {{ settings.body_weight | default: font_body.weight }};
       --font-body-style: {{ font_body.style }};
+      
       --font-size-base: {{ settings.font_size_base }}px;
       
-      /* Layout */
-      --page-width: {{ settings.page_width }}px;
-      --section-spacing: {{ settings.section_spacing }}px;
-      --border-radius: {{ settings.border_radius }}px;
+      /* Heading Scale */
+      {% case settings.heading_scale %}
+        {% when 'small' %}
+          --font-size-h1: 2rem;
+          --font-size-h2: 1.5rem;
+          --font-size-h3: 1.25rem;
+        {% when 'large' %}
+          --font-size-h1: 3.5rem;
+          --font-size-h2: 2.5rem;
+          --font-size-h3: 1.75rem;
+        {% else %}
+          --font-size-h1: 2.75rem;
+          --font-size-h2: 2rem;
+          --font-size-h3: 1.5rem;
+      {% endcase %}
       
-      /* Button Border Radius */
+      /* ========================================
+         LAYOUT
+      ======================================== */
+      {% if settings.page_layout == 'full' %}
+        --page-width: 100%;
+      {% else %}
+        --page-width: {{ settings.page_width }}px;
+      {% endif %}
+      
+      /* Section Spacing */
+      {% case settings.section_spacing %}
+        {% when 'compact' %}
+          --section-spacing: 40px;
+          --section-spacing-mobile: 30px;
+        {% when 'spacious' %}
+          --section-spacing: 100px;
+          --section-spacing-mobile: 60px;
+        {% else %}
+          --section-spacing: 70px;
+          --section-spacing-mobile: 45px;
+      {% endcase %}
+      
+      /* Border Radius */
+      --border-radius: {{ settings.border_radius }}px;
+      --border-radius-small: {{ settings.border_radius | divided_by: 2 }}px;
+      --border-radius-large: {{ settings.border_radius | times: 1.5 | round }}px;
+      
+      /* ========================================
+         BUTTON STYLE
+      ======================================== */
       {% case settings.button_style %}
         {% when 'rounded' %}
-          --button-radius: {{ settings.border_radius }}px;
+          --button-radius: {{ settings.button_border_radius }}px;
         {% when 'pill' %}
           --button-radius: 50px;
         {% when 'sharp' %}
-          --button-radius: 0;
+          --button-radius: 0px;
       {% endcase %}
       
-      /* Color Mode Variables */
-      {% case settings.color_mode %}
-        {% when 'light' %}
-          --color-body-bg: var(--color-light-bg);
-          --color-body-text: var(--color-light-text);
-          --color-secondary-bg: var(--color-light-secondary-bg);
-          --color-header-bg: var(--color-light-bg);
-          --color-header-text: var(--color-light-text);
-          --color-footer-bg: var(--color-light-secondary-bg);
-          --color-footer-text: var(--color-light-text);
-        {% when 'dark' %}
-          --color-body-bg: var(--color-dark-bg);
-          --color-body-text: var(--color-dark-text);
-          --color-secondary-bg: var(--color-dark-secondary-bg);
-          --color-header-bg: var(--color-dark-bg);
-          --color-header-text: var(--color-dark-text);
-          --color-footer-bg: var(--color-dark-secondary-bg);
-          --color-footer-text: var(--color-dark-text);
-        {% when 'mixed' %}
-          --color-body-bg: var(--color-light-bg);
-          --color-body-text: var(--color-light-text);
-          --color-secondary-bg: var(--color-light-secondary-bg);
-          --color-header-bg: var(--color-dark-bg);
-          --color-header-text: var(--color-dark-text);
-          --color-footer-bg: var(--color-dark-bg);
-          --color-footer-text: var(--color-dark-text);
+      {% if settings.button_uppercase %}
+        --button-text-transform: uppercase;
+        --button-letter-spacing: 0.08em;
+      {% else %}
+        --button-text-transform: none;
+        --button-letter-spacing: normal;
+      {% endif %}
+      
+      /* ========================================
+         LOGO
+      ======================================== */
+      --logo-width: {{ settings.logo_width }}px;
+      --logo-width-mobile: {{ settings.logo_width_mobile }}px;
+      
+      /* ========================================
+         ANNOUNCEMENT BAR
+      ======================================== */
+      --announcement-bg: {{ settings.announcement_bg }};
+      --announcement-text: {{ settings.announcement_text_color }};
+    }
+    
+    /* ========================================
+       BASE STYLES USING CSS VARIABLES
+    ======================================== */
+    body {
+      font-family: var(--font-body);
+      font-size: var(--font-size-base);
+      font-weight: var(--font-body-weight);
+      color: var(--color-text);
+      background-color: var(--color-background);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+    
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading);
+      font-weight: var(--font-heading-weight);
+      line-height: 1.2;
+      margin: 0 0 0.5em;
+    }
+    
+    h1 { font-size: var(--font-size-h1); }
+    h2 { font-size: var(--font-size-h2); }
+    h3 { font-size: var(--font-size-h3); }
+    
+    a {
+      color: var(--color-primary);
+      text-decoration: none;
+    }
+    
+    a:hover {
+      text-decoration: underline;
+    }
+    
+    /* Container */
+    .container {
+      max-width: var(--page-width);
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    
+    /* Sections */
+    .section {
+      padding: var(--section-spacing) 0;
+    }
+    
+    @media (max-width: 768px) {
+      .section {
+        padding: var(--section-spacing-mobile) 0;
+      }
+      
+      h1 { font-size: calc(var(--font-size-h1) * 0.7); }
+      h2 { font-size: calc(var(--font-size-h2) * 0.8); }
+    }
+    
+    /* Buttons */
+    .button, .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.875rem 1.75rem;
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      font-weight: 600;
+      text-transform: var(--button-text-transform);
+      letter-spacing: var(--button-letter-spacing);
+      border-radius: var(--button-radius);
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    
+    .button--primary, .btn--primary {
+      background-color: var(--color-button-bg);
+      color: var(--color-button-text);
+    }
+    
+    .button--primary:hover, .btn--primary:hover {
+      background-color: var(--color-button-hover);
+      text-decoration: none;
+      {% case settings.button_hover_effect %}
+        {% when 'lift' %}
+          transform: translateY(-2px);
+          box-shadow: 0 4px 12px rgba(var(--color-primary-rgb), 0.3);
+        {% when 'scale' %}
+          transform: scale(1.02);
+        {% when 'darken' %}
+          filter: brightness(0.9);
       {% endcase %}
+    }
+    
+    .button--secondary, .btn--secondary {
+      background-color: transparent;
+      color: var(--color-text);
+      border: 2px solid var(--color-border);
+    }
+    
+    .button--secondary:hover, .btn--secondary:hover {
+      background-color: var(--color-text);
+      color: var(--color-background);
+      text-decoration: none;
+    }
+    
+    /* Cards */
+    .card {
+      background-color: var(--color-background);
+      border-radius: var(--border-radius);
+      border: 1px solid var(--color-border);
+    }
+    
+    /* Input fields */
+    input, textarea, select {
+      font-family: var(--font-body);
+      font-size: var(--font-size-base);
+      border: 1px solid var(--color-border);
+      border-radius: var(--border-radius-small);
+      padding: 0.75rem 1rem;
+      background-color: var(--color-background);
+      color: var(--color-text);
+    }
+    
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(var(--color-primary-rgb), 0.1);
+    }
+    
+    /* Utility Classes */
+    .visually-hidden {
+      position: absolute !important;
+      width: 1px !important;
+      height: 1px !important;
+      padding: 0 !important;
+      margin: -1px !important;
+      overflow: hidden !important;
+      clip: rect(0, 0, 0, 0) !important;
+      white-space: nowrap !important;
+      border: 0 !important;
+    }
+    
+    .hidden--mobile {
+      display: none;
+    }
+    
+    @media (min-width: 769px) {
+      .hidden--mobile {
+        display: block;
+      }
+      .hidden--desktop {
+        display: none;
+      }
+    }
+    
+    /* WhatsApp Button */
+    .whatsapp-float {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 56px;
+      height: 56px;
+      background-color: #25D366;
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      z-index: 999;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
     }
   {% endstyle %}
 
@@ -128,7 +387,7 @@
   {%- endif -%}
 </head>
 
-<body class="template-{{ request.page_type | handle }} {% if settings.color_mode %}color-mode-{{ settings.color_mode }}{% endif %}">
+<body class="template-{{ request.page_type | handle }}">
   <a class="skip-to-content-link button visually-hidden" href="#MainContent">
     {{ 'accessibility.skip_to_text' | t }}
   </a>
@@ -141,6 +400,7 @@
 
   {%- sections 'footer-group' -%}
 
+  {%- comment %} WhatsApp Floating Button {% endcomment -%}
   {%- if settings.show_whatsapp_button and settings.contact_whatsapp != blank -%}
     <a href="https://wa.me/{{ settings.contact_whatsapp }}" 
        class="whatsapp-float" 
@@ -169,6 +429,12 @@
       quantityError: `{{ 'sections.cart.cart_quantity_error_html' | t: quantity: '[quantity]' }}`
     };
     window.freeShippingThreshold = {{ settings.free_shipping_threshold }};
+    window.themeSettings = {
+      showColorSwatches: {{ settings.show_color_swatches }},
+      showHoverImage: {{ settings.show_hover_image }},
+      showQuickAdd: {{ settings.show_quick_add }},
+      cartType: '{{ settings.cart_type }}'
+    };
   </script>
 </body>
 </html>
