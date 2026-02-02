@@ -21,17 +21,7 @@
           {% render 'product-card', product: product, lazy_load: true %}
         {%- else -%}
           {%- for i in (1..section.settings.products_to_show) -%}
-            <div class="product-card product-card--placeholder">
-              <div class="product-card__image-wrapper">
-                <div style="padding-top: 133%; background: var(--color-secondary-bg);"></div>
-              </div>
-              <div class="product-card__content">
-                <h3 class="product-card__title"><a href="#">Product Title</a></h3>
-                <div class="product-card__price">
-                  <span class="product-card__price-current">₹999</span>
-                </div>
-              </div>
-            </div>
+            {% render 'demo-product-card', index: i %}
           {%- endfor -%}
         {%- endfor -%}
       </div>
@@ -44,21 +34,20 @@
         </div>
       {%- endif -%}
     {%- else -%}
+      {%- comment %} Show demo products when no collection is selected {% endcomment -%}
       <div class="products-grid products-grid--{{ section.settings.products_per_row }}">
         {%- for i in (1..section.settings.products_to_show) -%}
-          <div class="product-card product-card--placeholder">
-            <div class="product-card__image-wrapper">
-              <div style="padding-top: 133%; background: var(--color-secondary-bg);"></div>
-            </div>
-            <div class="product-card__content">
-              <h3 class="product-card__title"><a href="#">Product Title</a></h3>
-              <div class="product-card__price">
-                <span class="product-card__price-current">₹999</span>
-              </div>
-            </div>
-          </div>
+          {% render 'demo-product-card', index: i %}
         {%- endfor -%}
       </div>
+      
+      {%- if section.settings.show_view_all -%}
+        <div class="featured-collection__footer">
+          <a href="/collections/all" class="button button--secondary">
+            {{ section.settings.view_all_text | default: 'View All' }}
+          </a>
+        </div>
+      {%- endif -%}
     {%- endif -%}
   </div>
 </section>
