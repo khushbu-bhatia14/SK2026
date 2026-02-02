@@ -105,24 +105,34 @@
   </div>
   <div class="drawer__body">
     <ul class="mobile-menu__list">
-      {%- for link in section.settings.menu.links -%}
-        <li class="mobile-menu__item">
-          {%- if link.links.size > 0 -%}
-            <button class="mobile-menu__link" data-submenu-toggle>
-              {{ link.title }}
-              {% render 'icon', icon: 'chevron-down', size: 18 %}
-            </button>
-            <ul class="mobile-menu__submenu">
-              <li><a href="{{ link.url }}" class="mobile-menu__sublink">View All {{ link.title }}</a></li>
-              {%- for child_link in link.links -%}
-                <li><a href="{{ child_link.url }}" class="mobile-menu__sublink">{{ child_link.title }}</a></li>
-              {%- endfor -%}
-            </ul>
-          {%- else -%}
-            <a href="{{ link.url }}" class="mobile-menu__link">{{ link.title }}</a>
-          {%- endif -%}
-        </li>
-      {%- endfor -%}
+      {%- if section.settings.menu != blank and section.settings.menu.links.size > 0 -%}
+        {%- for link in section.settings.menu.links -%}
+          <li class="mobile-menu__item">
+            {%- if link.links.size > 0 -%}
+              <button class="mobile-menu__link" data-submenu-toggle>
+                {{ link.title }}
+                {% render 'icon', icon: 'chevron-down', size: 18 %}
+              </button>
+              <ul class="mobile-menu__submenu">
+                <li><a href="{{ link.url }}" class="mobile-menu__sublink">View All {{ link.title }}</a></li>
+                {%- for child_link in link.links -%}
+                  <li><a href="{{ child_link.url }}" class="mobile-menu__sublink">{{ child_link.title }}</a></li>
+                {%- endfor -%}
+              </ul>
+            {%- else -%}
+              <a href="{{ link.url }}" class="mobile-menu__link">{{ link.title }}</a>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      {%- else -%}
+        {%- comment %} Fallback mobile menu {% endcomment -%}
+        <li class="mobile-menu__item"><a href="/collections/all" class="mobile-menu__link">Shop All</a></li>
+        <li class="mobile-menu__item"><a href="/collections/men" class="mobile-menu__link">Men</a></li>
+        <li class="mobile-menu__item"><a href="/collections/women" class="mobile-menu__link">Women</a></li>
+        <li class="mobile-menu__item"><a href="/collections/new-arrivals" class="mobile-menu__link">New Arrivals</a></li>
+        <li class="mobile-menu__item"><a href="/collections/best-sellers" class="mobile-menu__link">Best Sellers</a></li>
+        <li class="mobile-menu__item"><a href="/pages/size-guide" class="mobile-menu__link">Size Guide</a></li>
+      {%- endif -%}
     </ul>
     
     <div class="mobile-menu__footer">
