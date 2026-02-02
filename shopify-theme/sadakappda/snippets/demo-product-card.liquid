@@ -1,0 +1,133 @@
+{% comment %}
+  Demo Product Card - Shows realistic placeholder products with varied data
+  Use: {% render 'demo-product-card', index: forloop.index %}
+{% endcomment %}
+
+{%- comment %} Demo product data based on index {% endcomment -%}
+{%- assign demo_titles = 'Cozy Bear Oversized Tee,Energy Saving Mode Hoodie,Classic Black Premium Tee,Winter Essentials Sweatshirt,Minimalist White Tee,Urban Street Hoodie,Vintage Wash Tee,Comfort Fit Joggers' | split: ',' -%}
+{%- assign demo_prices = '999,1499,899,1799,799,1599,949,1299' | split: ',' -%}
+{%- assign demo_compare_prices = '1249,1899,0,2199,0,1999,1199,0' | split: ',' -%}
+{%- assign demo_badges = 'sale,new,none,sale,bestseller,new,sale,none' | split: ',' -%}
+{%- assign demo_colors = '3,4,2,3,2,4,3,2' | split: ',' -%}
+
+{%- assign product_index = index | minus: 1 | modulo: 8 -%}
+{%- assign demo_title = demo_titles[product_index] -%}
+{%- assign demo_price = demo_prices[product_index] -%}
+{%- assign demo_compare = demo_compare_prices[product_index] -%}
+{%- assign demo_badge = demo_badges[product_index] -%}
+{%- assign demo_color_count = demo_colors[product_index] | plus: 0 -%}
+
+<div class="product-card product-card--demo">
+  <a href="#" class="product-card__link">
+    <div class="product-card__image-wrapper">
+      {%- comment %} Use Shopify's built-in placeholder images {% endcomment -%}
+      {{ 'product-' | append: index | placeholder_svg_tag: 'product-card__image placeholder-svg' }}
+      
+      {%- comment %} Badges {% endcomment -%}
+      <div class="product-card__badges">
+        {%- case demo_badge -%}
+          {%- when 'sale' -%}
+            <span class="badge badge--sale">SALE</span>
+          {%- when 'new' -%}
+            <span class="badge badge--new">NEW</span>
+          {%- when 'bestseller' -%}
+            <span class="badge badge--bestseller">BESTSELLER</span>
+        {%- endcase -%}
+      </div>
+      
+      {%- comment %} Quick Add Button {% endcomment -%}
+      <div class="product-card__actions">
+        <button type="button" class="product-card__quick-add">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="9" cy="21" r="1"></circle>
+            <circle cx="20" cy="21" r="1"></circle>
+            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+          </svg>
+          <span>Quick Add</span>
+        </button>
+      </div>
+    </div>
+    
+    <div class="product-card__content">
+      {%- comment %} Color Swatches {% endcomment -%}
+      {%- if demo_color_count > 1 -%}
+        <div class="product-card__swatches">
+          {%- for i in (1..demo_color_count) -%}
+            {%- case i -%}
+              {%- when 1 -%}
+                <span class="product-card__swatch" style="background-color: #1A1A1A;" title="Black"></span>
+              {%- when 2 -%}
+                <span class="product-card__swatch" style="background-color: #FFFFFF; border: 1px solid #ddd;" title="White"></span>
+              {%- when 3 -%}
+                <span class="product-card__swatch" style="background-color: #2C3E50;" title="Navy"></span>
+              {%- when 4 -%}
+                <span class="product-card__swatch" style="background-color: #7F8C8D;" title="Grey"></span>
+            {%- endcase -%}
+          {%- endfor -%}
+          {%- if demo_color_count > 3 -%}
+            <span class="product-card__swatch-more">+{{ demo_color_count | minus: 3 }}</span>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+      
+      <h3 class="product-card__title">{{ demo_title }}</h3>
+      
+      <div class="product-card__price">
+        <span class="product-card__price-current">₹{{ demo_price }}</span>
+        {%- if demo_compare != '0' and demo_compare != blank -%}
+          <span class="product-card__price-compare">₹{{ demo_compare }}</span>
+          {%- assign savings = demo_compare | minus: demo_price | times: 100 | divided_by: demo_compare -%}
+          <span class="product-card__price-discount">{{ savings }}% OFF</span>
+        {%- endif -%}
+      </div>
+    </div>
+  </a>
+</div>
+
+<style>
+  .product-card--demo .placeholder-svg {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+  }
+  
+  .product-card__swatches {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .product-card__swatch {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s;
+  }
+  
+  .product-card__swatch:hover {
+    transform: scale(1.2);
+  }
+  
+  .product-card__swatch-more {
+    font-size: 0.6875rem;
+    color: rgba(128, 128, 128, 0.7);
+  }
+  
+  .product-card__price-discount {
+    font-size: 0.75rem;
+    color: #27ae60;
+    font-weight: 600;
+  }
+  
+  .badge--new {
+    background: #3498db;
+    color: #fff;
+  }
+  
+  .badge--bestseller {
+    background: #f39c12;
+    color: #fff;
+  }
+</style>
