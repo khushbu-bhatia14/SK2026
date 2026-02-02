@@ -24,7 +24,15 @@
                 loading="lazy"
               >
             {%- else -%}
-              <div class="category-block__placeholder"></div>
+              {%- comment %} Demo gradient background when no image {% endcomment -%}
+              <div class="category-block__placeholder" style="
+                background: linear-gradient(135deg, 
+                  {%- if forloop.index == 1 -%}#2C3E50, #1A1A1A{%- endif -%}
+                  {%- if forloop.index == 2 -%}#E91E8C, #FF6B35{%- endif -%}
+                  {%- if forloop.index == 3 -%}#27ae60, #2ecc71{%- endif -%}
+                  {%- if forloop.index >= 4 -%}#3498db, #2980b9{%- endif -%}
+                );
+              "></div>
             {%- endif -%}
           </div>
           <div class="category-block__overlay" style="background: {{ block.settings.overlay_color }}; opacity: {{ block.settings.overlay_opacity | divided_by: 100.0 }};"></div>
