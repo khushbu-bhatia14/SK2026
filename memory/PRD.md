@@ -48,7 +48,9 @@ Build a complete, professional, and fully dynamic Shopify OS 2.0 theme from scra
 - [x] README.md with setup instructions
 - [x] **Size Chart Popup** - Dynamic modal with measurement tables (Tops/Bottoms), editable via Theme Editor
 - [x] **Mobile Hamburger Menu** - Responsive navigation for mobile devices
-- [x] Updated theme ZIP with all new features
+- [x] **Recently Viewed Products** - localStorage tracking, displays on product pages with swatches/badges
+- [x] **Demo Product Cards** - Realistic placeholder data for empty collections
+- [x] Updated theme ZIP with all new features (96KB)
 
 ### 🔄 In Progress
 - [ ] User needs to upload theme to Shopify store for real testing
