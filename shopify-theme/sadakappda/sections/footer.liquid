@@ -47,34 +47,41 @@
           </div>
           <p class="footer__about-text">{{ section.settings.about_text }}</p>
           
-          {%- comment %} Social Links {% endcomment -%}
-          <div class="footer__social">
-            {%- if settings.social_instagram != blank -%}
-              <a href="{{ settings.social_instagram }}" target="_blank" rel="noopener" aria-label="Instagram">
-                {% render 'icon', icon: 'instagram', size: 20 %}
-              </a>
-            {%- endif -%}
-            {%- if settings.social_facebook != blank -%}
-              <a href="{{ settings.social_facebook }}" target="_blank" rel="noopener" aria-label="Facebook">
-                {% render 'icon', icon: 'facebook', size: 20 %}
-              </a>
-            {%- endif -%}
-            {%- if settings.social_twitter != blank -%}
-              <a href="{{ settings.social_twitter }}" target="_blank" rel="noopener" aria-label="Twitter">
-                {% render 'icon', icon: 'twitter', size: 20 %}
-              </a>
-            {%- endif -%}
-            {%- if settings.social_youtube != blank -%}
-              <a href="{{ settings.social_youtube }}" target="_blank" rel="noopener" aria-label="YouTube">
-                {% render 'icon', icon: 'youtube', size: 20 %}
-              </a>
-            {%- endif -%}
-            {%- if settings.social_pinterest != blank -%}
-              <a href="{{ settings.social_pinterest }}" target="_blank" rel="noopener" aria-label="Pinterest">
-                {% render 'icon', icon: 'pinterest', size: 20 %}
-              </a>
-            {%- endif -%}
-          </div>
+          {%- comment %} Social Links - Controlled by Theme Settings {% endcomment -%}
+          {%- if settings.footer_show_social -%}
+            <div class="footer__social">
+              {%- if settings.social_instagram != blank -%}
+                <a href="{{ settings.social_instagram }}" target="_blank" rel="noopener" aria-label="Instagram">
+                  {% render 'icon', icon: 'instagram', size: 20 %}
+                </a>
+              {%- endif -%}
+              {%- if settings.social_facebook != blank -%}
+                <a href="{{ settings.social_facebook }}" target="_blank" rel="noopener" aria-label="Facebook">
+                  {% render 'icon', icon: 'facebook', size: 20 %}
+                </a>
+              {%- endif -%}
+              {%- if settings.social_twitter != blank -%}
+                <a href="{{ settings.social_twitter }}" target="_blank" rel="noopener" aria-label="Twitter">
+                  {% render 'icon', icon: 'twitter', size: 20 %}
+                </a>
+              {%- endif -%}
+              {%- if settings.social_youtube != blank -%}
+                <a href="{{ settings.social_youtube }}" target="_blank" rel="noopener" aria-label="YouTube">
+                  {% render 'icon', icon: 'youtube', size: 20 %}
+                </a>
+              {%- endif -%}
+              {%- if settings.social_pinterest != blank -%}
+                <a href="{{ settings.social_pinterest }}" target="_blank" rel="noopener" aria-label="Pinterest">
+                  {% render 'icon', icon: 'pinterest', size: 20 %}
+                </a>
+              {%- endif -%}
+              {%- if settings.social_tiktok != blank -%}
+                <a href="{{ settings.social_tiktok }}" target="_blank" rel="noopener" aria-label="TikTok">
+                  {% render 'icon', icon: 'tiktok', size: 20 %}
+                </a>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
         </div>
         
         {%- comment %} Menu Columns {% endcomment -%}
