@@ -4,7 +4,27 @@
 
 {% section 'product-main' %}
 {% section 'size-chart-popup' %}
+{% section 'recently-viewed' %}
 {% section 'product-recommendations' %}
+
+{%- comment %} Track this product for Recently Viewed {% endcomment -%}
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    window.currentProductId = {{ product.id }};
+    
+    if (window.SadaKappda && window.SadaKappda.saveToRecentlyViewed) {
+      window.SadaKappda.saveToRecentlyViewed({
+        id: {{ product.id }},
+        title: {{ product.title | json }},
+        url: {{ product.url | json }},
+        image: {{ product.featured_image | image_url: width: 600 | json }},
+        price: {{ product.price | money | json }},
+        comparePrice: {{ product.compare_at_price | money | json }},
+        discount: {% if product.compare_at_price > product.price %}{{ product.compare_at_price | minus: product.price | times: 100 | divided_by: product.compare_at_price }}{% else %}null{% endif %}
+      });
+    }
+  });
+</script>
 
 {% schema %}
 {
