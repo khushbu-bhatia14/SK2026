@@ -592,15 +592,51 @@
   "name": "Header",
   "settings": [
     {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
       "type": "link_list",
       "id": "menu",
-      "label": "Menu",
-      "default": "main-menu"
+      "label": "Main menu",
+      "default": "main-menu",
+      "info": "Create menus in Shopify Admin → Online Store → Navigation"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_mega_menu",
+      "label": "Enable mega menu for dropdowns",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "paragraph",
+      "content": "Upload your logo in Theme Settings → Logo"
+    },
+    {
+      "type": "header",
+      "content": "Behavior"
     },
     {
       "type": "checkbox",
       "id": "enable_sticky",
       "label": "Enable sticky header",
+      "default": true,
+      "info": "Header stays visible when scrolling"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Show search icon",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_account",
+      "label": "Show account icon",
       "default": true
     }
   ],
