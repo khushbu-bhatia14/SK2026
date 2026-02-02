@@ -145,11 +145,13 @@
     <div class="container">
       <div class="footer__bottom-inner">
         <p class="footer__copyright">
-          &copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. All rights reserved.
+          {{ settings.footer_copyright | default: '© ' | append: 'now' | date: '%Y' | append: ' ' | append: shop.name | append: '. All rights reserved.' }}
         </p>
-        <div class="footer__payments">
-          {{ shop.enabled_payment_types | payment_type_svg_tag }}
-        </div>
+        {%- if settings.footer_show_payment -%}
+          <div class="footer__payments">
+            {{ shop.enabled_payment_types | payment_type_svg_tag }}
+          </div>
+        {%- endif -%}
       </div>
     </div>
   </div>
