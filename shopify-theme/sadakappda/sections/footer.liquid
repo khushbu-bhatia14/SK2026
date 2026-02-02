@@ -1,9 +1,13 @@
 {% comment %}
-  Footer Section
+  Footer Section - Fully configurable via Theme Settings
 {% endcomment %}
 
-<footer class="footer" style="background: var(--color-footer-bg); color: var(--color-footer-text);">
-  {%- if section.settings.show_newsletter -%}
+{%- comment %} Get footer colors from theme settings {% endcomment -%}
+{%- assign footer_bg = settings.color_footer_background -%}
+{%- assign footer_text = settings.color_footer_text -%}
+
+<footer class="footer" style="background-color: {{ footer_bg }}; color: {{ footer_text }};">
+  {%- if settings.footer_show_newsletter and section.settings.show_newsletter -%}
     <div class="footer__newsletter">
       <div class="container">
         <div class="newsletter-section">
