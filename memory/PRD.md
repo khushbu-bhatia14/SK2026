@@ -46,6 +46,9 @@ Build a complete, professional, and fully dynamic Shopify OS 2.0 theme from scra
 - [x] Theme ZIP packaging
 - [x] Static HTML preview for visual verification
 - [x] README.md with setup instructions
+- [x] **Size Chart Popup** - Dynamic modal with measurement tables (Tops/Bottoms), editable via Theme Editor
+- [x] **Mobile Hamburger Menu** - Responsive navigation for mobile devices
+- [x] Updated theme ZIP with all new features
 
 ### 🔄 In Progress
 - [ ] User needs to upload theme to Shopify store for real testing
