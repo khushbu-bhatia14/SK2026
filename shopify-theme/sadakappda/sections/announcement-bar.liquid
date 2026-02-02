@@ -1,25 +1,42 @@
 {% comment %}
-  Announcement Bar Section
+  Announcement Bar Section - Uses Theme Settings for defaults
 {% endcomment %}
 
-{%- if section.settings.show_announcement -%}
+{%- comment %} Check both theme settings and section settings {% endcomment -%}
+{%- assign show_bar = settings.announcement_enabled -%}
+{%- if section.settings.show_announcement == false -%}
+  {%- assign show_bar = false -%}
+{%- endif -%}
+
+{%- if show_bar -%}
+  {%- comment %} Use theme settings for colors if not overridden in section {% endcomment -%}
+  {%- assign bar_bg = section.settings.background_color | default: settings.announcement_bg -%}
+  {%- assign bar_text = section.settings.text_color | default: settings.announcement_text_color -%}
+  
   <div class="announcement-bar" style="
-    background: {{ section.settings.background_color }};
-    color: {{ section.settings.text_color }};
+    background: {{ bar_bg }};
+    color: {{ bar_text }};
   ">
     <div class="container">
       <div class="announcement-slider">
-        {%- for block in section.blocks -%}
-          <div class="announcement-slide {% if forloop.first %}is-active{% endif %}" {{ block.shopify_attributes }}>
-            {%- if block.settings.link != blank -%}
-              <a href="{{ block.settings.link }}" class="announcement-slide__link">
-                {{ block.settings.text }}
-              </a>
-            {%- else -%}
-              <span>{{ block.settings.text }}</span>
-            {%- endif -%}
+        {%- if section.blocks.size > 0 -%}
+          {%- for block in section.blocks -%}
+            <div class="announcement-slide {% if forloop.first %}is-active{% endif %}" {{ block.shopify_attributes }}>
+              {%- if block.settings.link != blank -%}
+                <a href="{{ block.settings.link }}" class="announcement-slide__link">
+                  {{ block.settings.text }}
+                </a>
+              {%- else -%}
+                <span>{{ block.settings.text }}</span>
+              {%- endif -%}
+            </div>
+          {%- endfor -%}
+        {%- else -%}
+          {%- comment %} Fallback to theme setting text {% endcomment -%}
+          <div class="announcement-slide is-active">
+            <span>{{ settings.announcement_text }}</span>
           </div>
-        {%- endfor -%}
+        {%- endif -%}
       </div>
     </div>
   </div>
