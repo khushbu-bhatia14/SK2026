@@ -1,9 +1,5 @@
-{%- comment -%}
-  Footer Group - Contains footer section
-{%- endcomment -%}
-
-{% schema %}
 {
+  "type": "footer",
   "name": "Footer Group",
   "sections": {
     "footer": {
@@ -13,4 +9,3 @@
   },
   "order": ["footer"]
 }
-{% endschema %}
